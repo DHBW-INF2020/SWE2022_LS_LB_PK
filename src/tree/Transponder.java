@@ -13,6 +13,12 @@ public class Transponder extends Node {
 	private int _frequency;
 	private int _symmetry;
 	
+	/**
+	 * Constructor for Transponder
+	 * @param polarisation
+	 * @param frequency
+	 * @param symmetry
+	 */
 	public Transponder(char polarisation, int frequency, int symmetry) {
 		super();
 		_polarisation = polarisation;
@@ -23,7 +29,7 @@ public class Transponder extends Node {
 	/**
 	 * @return the _polarisation
 	 */
-	public char get_polarisation() {
+	public char getPolarisation() {
 		return _polarisation;
 	}
 
@@ -31,7 +37,7 @@ public class Transponder extends Node {
 	/**
 	 * @return the _frequency
 	 */
-	public int get_frequency() {
+	public int getFrequency() {
 		return _frequency;
 	}
 
@@ -39,7 +45,7 @@ public class Transponder extends Node {
 	/**
 	 * @return the _symmetry
 	 */
-	public int get_symmetry() {
+	public int getSymmetry() {
 		return _symmetry;
 	}
 
