@@ -94,6 +94,8 @@ local.properties
 .idea/**/dynamic.xml
 .idea/**/uiDesigner.xml
 .idea/**/dbnavigator.xml
+.idea
+SWE2022_LS_LB_PK.iml
 
 # Gradle
 .idea/**/gradle.xml
