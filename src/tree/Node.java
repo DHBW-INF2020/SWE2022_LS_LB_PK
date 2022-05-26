@@ -9,7 +9,7 @@ public abstract class Node {
 
     ArrayList<Node> children;
     String childrenType;
-
+    
     /**
      *
      * @param visitor
