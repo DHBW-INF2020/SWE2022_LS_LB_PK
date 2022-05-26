@@ -9,11 +9,11 @@ import java.util.ArrayList;
  */
 public abstract class Node {
 
-    ArrayList<Node> children;
-    String childrenType;
+    private ArrayList<Node> _children;
+    private String _childrenType;
 
     public Node(){
-        children = new ArrayList<>();
+        _children = new ArrayList<>();
     }
 
     /**
@@ -22,4 +22,19 @@ public abstract class Node {
      * @return Node
      */
     public abstract Node accept(IVisitor<Node> visitor);
+
+	/**
+	 * @return the _childrenType
+	 */
+	public String getChildrenType() {
+		return _childrenType;
+	}
+
+	/**
+	 * @return the _children
+	 */
+	public ArrayList<Node> getChildren() {
+		return _children;
+	}
+
 }
