@@ -1,6 +1,6 @@
 package tree;
 
-import visitors.Visitor;
+import visitors.IVisitor;
 
 import java.util.ArrayList;
 
@@ -21,5 +21,5 @@ public abstract class Node {
      * @param visitor
      * @return Node
      */
-    public abstract Node accept(Visitor<Node> visitor);
+    public abstract Node accept(IVisitor<Node> visitor);
 }

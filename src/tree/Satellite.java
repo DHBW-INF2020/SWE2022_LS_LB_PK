@@ -3,7 +3,7 @@
  */
 package tree;
 
-import visitors.Visitor;
+import visitors.IVisitor;
 
 /**
  * 
@@ -42,7 +42,7 @@ public String getOrbital() {
 }
 
 	@Override
-	public Node accept(Visitor<Node> visitor) {
+	public Node accept(IVisitor<Node> visitor) {
 		return null;
 	}
 }
