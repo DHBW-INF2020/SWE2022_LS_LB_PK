@@ -2,6 +2,8 @@ package visitors;
 
 import tree.Channel;
 import tree.Node;
+import tree.Satellite;
+import tree.Transponder;
 
 /**
  *

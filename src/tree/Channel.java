@@ -1,5 +1,7 @@
 package tree;
 
+import visitors.Visitor;
+
 public class Channel extends Node{
 
     int _sid;
@@ -23,7 +25,7 @@ public class Channel extends Node{
 
 
     @Override
-    public Node accept(Object visitor) {
+    public Node accept(Visitor<Node> visitor) {
         return null;
     }
 }

@@ -1,5 +1,7 @@
 package tree;
 
+import visitors.Visitor;
+
 /**
  * 
  * @author Lea
@@ -12,6 +14,7 @@ public class Transponder extends Node {
 	private int _symmetry;
 	
 	public Transponder(char polarisation, int frequency, int symmetry) {
+		super();
 		_polarisation = polarisation;
 		_frequency = frequency;
 		_symmetry = symmetry;
@@ -40,4 +43,8 @@ public class Transponder extends Node {
 		return _symmetry;
 	}
 
+	@Override
+	public Node accept(Visitor<Node> visitor) {
+		return null;
+	}
 }
