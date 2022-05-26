@@ -1,5 +1,7 @@
 package tree;
 
+import visitors.Visitor;
+
 /**
  * 
  * @author Lea
@@ -18,6 +20,7 @@ public class Transponder extends Node {
 	 * @param symmetry
 	 */
 	public Transponder(char polarisation, int frequency, int symmetry) {
+		super();
 		_polarisation = polarisation;
 		_frequency = frequency;
 		_symmetry = symmetry;
@@ -47,9 +50,7 @@ public class Transponder extends Node {
 	}
 
 	@Override
-	public Node accept(Object visitor) {
-		// TODO Auto-generated method stub
+	public Node accept(Visitor<Node> visitor) {
 		return null;
 	}
-
 }

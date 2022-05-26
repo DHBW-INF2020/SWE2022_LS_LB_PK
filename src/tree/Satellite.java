@@ -3,6 +3,8 @@
  */
 package tree;
 
+import visitors.Visitor;
+
 /**
  * 
  * @author Lea
@@ -39,14 +41,8 @@ public String getOrbital() {
 	return _orbital;
 }
 
-
-@Override
-public Node accept(Object visitor) {
-	// TODO Auto-generated method stub
-	return null;
-}
-
-	
-
-
+	@Override
+	public Node accept(Visitor<Node> visitor) {
+		return null;
+	}
 }
