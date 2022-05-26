@@ -26,6 +26,6 @@ public class Channel extends Node{
 
     @Override
     public Node accept(IVisitor<Node> visitor) {
-        return null;
+        return visitor.visitChannel(this);
     }
 }
