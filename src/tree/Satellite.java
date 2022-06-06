@@ -25,6 +25,10 @@ public class Satellite extends Node{
 		_orbital = orbital;
 	}
 
+	/**
+	 * Copy Constructor for Satellite
+	 * @param origin
+	 */
 	public Satellite(Satellite origin){
 		this._name = origin._name;
 		this._orbital = origin._orbital;

@@ -26,6 +26,10 @@ public class Transponder extends Node {
 		_symmetry = symmetry;
 	}
 
+	/**
+	 * Copy Constructor for Transponder
+	 * @param origin
+	 */
 	public Transponder(Transponder origin){
 		this._frequency = origin._frequency;
 		this._polarisation = origin._polarisation;
