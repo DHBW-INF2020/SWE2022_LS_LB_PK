@@ -1,6 +1,6 @@
 package tree;
 
-import visitors.IVisitor;
+import visitor.IVisitor;
 
 import java.util.ArrayList;
 
@@ -40,6 +40,11 @@ public abstract class Node {
 	public void setChildren(ArrayList<Node> children){
 		this._children = children;
 		this._childrenType = children.get(0).getType();
+	}
+
+	public void clearChildren(){
+		this._children = new ArrayList<>();
+		this._childrenType = null;
 	}
 
 	public void addChild(Node child){

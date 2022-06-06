@@ -3,7 +3,7 @@
  */
 package tree;
 
-import visitors.IVisitor;
+import visitor.IVisitor;
 
 /**
  * 
@@ -25,6 +25,11 @@ public class Satellite extends Node{
 		_orbital = orbital;
 	}
 
+	public Satellite(Satellite origin){
+		this._name = origin._name;
+		this._orbital = origin._orbital;
+		this.setChildren(origin.getChildren());
+	}
 
 	/**
 	 * @return _name
@@ -43,7 +48,7 @@ public class Satellite extends Node{
 
 	@Override
 	public Node accept(IVisitor<Node> visitor) {
-		return null;
+		return visitor.visitSatellite(this);
 	}
 
 	@Override

@@ -1,4 +1,4 @@
-package visitors;
+package visitor;
 
 import tree.Channel;
 import tree.Root;

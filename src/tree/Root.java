@@ -1,6 +1,6 @@
 package tree;
 
-import visitors.IVisitor;
+import visitor.IVisitor;
 
 public class Root extends Node{
     @Override

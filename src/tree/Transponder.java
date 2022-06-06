@@ -1,6 +1,6 @@
 package tree;
 
-import visitors.IVisitor;
+import visitor.IVisitor;
 
 /**
  * 
@@ -24,6 +24,13 @@ public class Transponder extends Node {
 		_polarisation = polarisation;
 		_frequency = frequency;
 		_symmetry = symmetry;
+	}
+
+	public Transponder(Transponder origin){
+		this._frequency = origin._frequency;
+		this._polarisation = origin._polarisation;
+		this._symmetry = origin._symmetry;
+		this.setChildren(origin.getChildren());
 	}
 
 	/**
@@ -51,7 +58,7 @@ public class Transponder extends Node {
 
 	@Override
 	public Node accept(IVisitor<Node> visitor) {
-		return null;
+		return visitor.visitTransponder(this);
 	}
 
 	@Override
