@@ -9,9 +9,9 @@ import visitors.IVisitor;
  */
 public class Transponder extends Node {
 
-	private char _polarisation;
+	private String _polarisation;
 	private int _frequency;
-	private int _symmetry;
+	private String _symmetry;
 	
 	/**
 	 * Constructor for Transponder
@@ -19,7 +19,7 @@ public class Transponder extends Node {
 	 * @param frequency
 	 * @param symmetry
 	 */
-	public Transponder(char polarisation, int frequency, int symmetry) {
+	public Transponder(String polarisation, int frequency, String symmetry) {
 		super();
 		_polarisation = polarisation;
 		_frequency = frequency;
@@ -29,7 +29,7 @@ public class Transponder extends Node {
 	/**
 	 * @return the _polarisation
 	 */
-	public char getPolarisation() {
+	public String getPolarisation() {
 		return _polarisation;
 	}
 
@@ -45,7 +45,7 @@ public class Transponder extends Node {
 	/**
 	 * @return the _symmetry
 	 */
-	public int getSymmetry() {
+	public String getSymmetry() {
 		return _symmetry;
 	}
 
@@ -53,4 +53,11 @@ public class Transponder extends Node {
 	public Node accept(IVisitor<Node> visitor) {
 		return null;
 	}
+
+	@Override
+	public NodeType getType() {
+		return NodeType.TRANSPONDER;
+	}
+
+
 }

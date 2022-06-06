@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public abstract class Node {
 
     private ArrayList<Node> _children;
-    private String _childrenType;
+    private NodeType _childrenType;
 
     public Node(){
         _children = new ArrayList<>();
@@ -26,7 +26,7 @@ public abstract class Node {
 	/**
 	 * @return the _childrenType
 	 */
-	public String getChildrenType() {
+	public NodeType getChildrenType() {
 		return _childrenType;
 	}
 
@@ -37,4 +37,15 @@ public abstract class Node {
 		return _children;
 	}
 
+	public void setChildren(ArrayList<Node> children){
+		this._children = children;
+		this._childrenType = children.get(0).getType();
+	}
+
+	public void addChild(Node child){
+		this._children.add(child);
+		this._childrenType = child.getType();
+	}
+
+	public abstract NodeType getType();
 }

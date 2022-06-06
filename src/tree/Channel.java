@@ -5,15 +5,7 @@ import visitors.IVisitor;
 public class Channel extends Node{
 
     int _sid;
-    String _type;
     String _name;
-    String _v_pid;
-    String _a_pid;
-    String _compression;
-    String _url;
-    String _enc;
-    String _package;
-    String _res;
 
     public int getSid() {
         return _sid;
@@ -23,9 +15,19 @@ public class Channel extends Node{
         return _name;
     }
 
+    public Channel(String name, int sid){
+        this._name = name;
+        this._sid = sid;
+    }
 
     @Override
     public Node accept(IVisitor<Node> visitor) {
         return visitor.visitChannel(this);
     }
+
+    @Override
+    public NodeType getType() {
+        return NodeType.CHANNEL;
+    }
+
 }

@@ -7,4 +7,9 @@ public class Root extends Node{
     public Node accept(IVisitor<Node> visitor) {
         return visitor.visitRoot(this);
     }
+
+    @Override
+    public NodeType getType() {
+        return NodeType.ROOT;
+    }
 }
