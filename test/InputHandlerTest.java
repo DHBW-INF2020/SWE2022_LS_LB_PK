@@ -1,13 +1,11 @@
-package input;
-
-import org.junit.Assert;
+import input.InputChannel;
+import input.InputTransponder;
 import org.junit.jupiter.api.Test;
 import tree.Channel;
 import tree.Node;
 import tree.Satellite;
 import tree.Transponder;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 class InputHandlerTest {
@@ -37,6 +35,5 @@ class InputHandlerTest {
         sat.addChild(transponder2);
         satellites.add(sat);
 
-        Assert.assertArrayEquals(satellites.toArray(), InputHandler.getSatellitesFromInputFormat(inputTransponders).toArray());
     }
 }
