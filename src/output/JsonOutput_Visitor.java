@@ -8,36 +8,36 @@ import java.util.ArrayList;
 
 public class JsonOutput_Visitor extends BaseVisitor<Node> {
 
-    public String jsonString = "";
+    public StringBuilder builder = new StringBuilder();
 
     @Override
     public Node visitTransponder(Transponder ctx) {
-        jsonString += "{";
+        builder.append("{");
         addAttribute("pol", ctx.getPolarisation(), true);
         addAttribute("freq", String.valueOf(ctx.getFrequency()), false);
         addAttribute("sym", ctx.getSymmetry(), false);
         addChildren(ctx.getChildren(), ctx.getChildrenType());
-        jsonString += "}";
+        builder.append("}");
         return null;
     }
 
     @Override
     public Node visitSatellite(Satellite ctx) {
-        jsonString += "{";
+        builder.append("{");
         addAttribute("sat", ctx.getName(), true);
         addAttribute("orbital", ctx.getOrbital(), false);
         addChildren(ctx.getChildren(), ctx.getChildrenType());
-        jsonString += "}";
+        builder.append("}");
 
         return null;
     }
 
     @Override
     public Node visitChannel(Channel ctx) {
-        jsonString += "{";
+        builder.append("{");
         addAttribute("channel", ctx.getName(), true);
         addChildren(ctx.getChildren(), ctx.getChildrenType());
-        jsonString += "}";
+        builder.append("}");
 
         return null;
     }
@@ -45,42 +45,42 @@ public class JsonOutput_Visitor extends BaseVisitor<Node> {
 
     @Override
     public Node visitRoot(Root ctx) {
-        jsonString += "[";
+        builder.append("[");
         ArrayList<Node> children = ctx.getChildren();
         for (int i = 0; i < children.size(); i++) {
             Node child = children.get(i);
             child.accept(this);
-            if(i < children.size()-1) jsonString += ",";
+            if(i < children.size()-1) builder.append(",");
 
         }
-        jsonString += "]";
+        builder.append("]");
         return null;
     }
 
     private void addChildren(ArrayList<Node> children, NodeType childrenType) {
         if(children.size() > 0){
-            jsonString += ",";
+            builder.append(",");
             switch (childrenType){
-                case TRANSPONDER -> jsonString+="\"transponders\":";
-                case SATTELITE -> jsonString+="\"satellites\":";
-                case CHANNEL -> jsonString+="\"channels\":";
+                case TRANSPONDER -> builder.append("\"transponders\":");
+                case SATTELITE -> builder.append("\"satellites\":");
+                case CHANNEL -> builder.append("\"channels\":");
             }
-            jsonString += "[";
+            builder.append("[");
             for (int i = 0; i < children.size(); i++) {
                 Node child = children.get(i);
                 child.accept(this);
-                if(i < children.size()-1) jsonString += ",";
+                if(i < children.size()-1) builder.append(",");
             }
-            jsonString += "]";
+            builder.append("]");
         }
     }
 
     private void addAttribute(String name, String value, Boolean first){
         if(first) {
-            jsonString += "\"" + name + "\": \"" + value + "\"";
+            builder.append("\"" + name + "\": \"" + value + "\"");
         }
         else{
-            jsonString += ",\"" + name + "\": \"" + value + "\"";
+            builder.append(",\"" + name + "\": \"" + value + "\"");
         }
     }
 }
