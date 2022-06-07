@@ -5,9 +5,13 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import input.InputHandler;
 import output.JsonOutput_Visitor;
+import output.XmlOutput_Visitor;
 import tree.Node;
 import aggregates.ChannelsOverSatellites_Visitor;
 
+import javax.xml.transform.*;
+import javax.xml.transform.stream.StreamResult;
+import javax.xml.transform.stream.StreamSource;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -21,11 +25,28 @@ public class Main {
 
         JsonOutput_Visitor jsonOutput_visitor = new JsonOutput_Visitor();
         newTree.accept(jsonOutput_visitor);
-        StringBuilder builder = jsonOutput_visitor.builder;
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        JsonElement je = JsonParser.parseString(builder.toString());
-        String prettyJsonString = gson.toJson(je);
+        StringBuilder builderJson = jsonOutput_visitor.builder;
 
-        System.out.println(prettyJsonString);
+        XmlOutput_Visitor xmlOutput_visitor = new XmlOutput_Visitor();
+        newTree.accept(xmlOutput_visitor);
+        StringBuilder builderXml = xmlOutput_visitor.builder;
+        System.out.println(builderXml.toString());
+
+        try {
+            Source xmlInput = new StreamSource(new StringReader(builderXml.toString()));
+            StreamResult xmlOutput = new StreamResult(new StringWriter());
+            Transformer transformer = TransformerFactory.newInstance()
+                    .newTransformer(); // An identity transformer
+            transformer.setOutputProperty(OutputKeys.DOCTYPE_SYSTEM, "testing.dtd");
+            transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+            transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
+            transformer.transform(xmlInput, xmlOutput);
+            System.out.println(xmlOutput);
+        }
+        catch (TransformerException e){
+            throw new RuntimeException(e);
+        }
+
+
     }
 }
