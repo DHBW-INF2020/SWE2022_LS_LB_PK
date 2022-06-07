@@ -3,7 +3,7 @@
  */
 package tree;
 
-import visitor.IVisitor;
+import visitor.iVisitor;
 
 /**
  * 
@@ -51,7 +51,7 @@ public class Satellite extends Node{
 	}
 
 	@Override
-	public Node accept(IVisitor<Node> visitor) {
+	public Node accept(iVisitor visitor) {
 		return visitor.visitSatellite(this);
 	}
 

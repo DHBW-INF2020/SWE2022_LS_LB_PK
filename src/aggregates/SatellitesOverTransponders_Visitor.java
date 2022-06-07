@@ -13,7 +13,7 @@ import java.util.HashMap;
  * @author Lea
  *
  */
-public class SatellitesOverTransponders_Visitor extends BaseVisitor<Node> {
+public class SatellitesOverTransponders_Visitor extends BaseVisitor {
 
 	HashMap<String, Satellite> satellites = new HashMap<>();
 

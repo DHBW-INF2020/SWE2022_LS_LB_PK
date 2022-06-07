@@ -1,14 +1,17 @@
 package output;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
 import tree.*;
 import visitor.BaseVisitor;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
-public class JsonOutput_Visitor extends BaseVisitor<Node> implements IOutput_Visitor{
+public class JsonOutput_Visitor implements iOutput_Visitor {
 
-    public StringBuilder builder = new StringBuilder();
+    private StringBuilder builder = new StringBuilder();
 
     @Override
     public Node visitTransponder(Transponder ctx) {
@@ -35,7 +38,7 @@ public class JsonOutput_Visitor extends BaseVisitor<Node> implements IOutput_Vis
     @Override
     public Node visitChannel(Channel ctx) {
         builder.append("{");
-        addAttribute("channel", ctx.getName(), true);
+        addAttribute("channel", normalizeJSON(ctx.getName()), true);
         addChildren(ctx.getChildren(), ctx.getChildrenType());
         builder.append("}");
 
@@ -87,4 +90,23 @@ public class JsonOutput_Visitor extends BaseVisitor<Node> implements IOutput_Vis
             builder.append("]");
         }
 	}
+
+    @Override
+    public String getParsedData() {
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        JsonElement je = JsonParser.parseString(builder.toString());
+        return gson.toJson(je);
+    }
+
+    /**
+     * Escape forbidden characters for json format
+     * @param input
+     * @return
+     */
+    private String normalizeJSON(String input){
+        return input.replaceAll("\"", "\\\\\"")
+                .replaceAll("\t", "\\t")
+                .replaceAll("\b", "\\\\\b");
+    }
+
 }

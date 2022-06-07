@@ -7,12 +7,13 @@ import java.util.ArrayList;
 
 import tree.Node;
 import tree.NodeType;
+import visitor.iVisitor;
 
 /**
  * @author Lea
  *
  */
-public interface IOutput_Visitor {
+public interface iOutput_Visitor extends iVisitor {
 	
 	/**
 	 * method to add an attribute and its value
@@ -27,5 +28,8 @@ public interface IOutput_Visitor {
 	 * @param childrenType
 	 */
 	void addChildren(ArrayList<Node> children, NodeType childrenType);
+
+
+	String getParsedData();
 
 }

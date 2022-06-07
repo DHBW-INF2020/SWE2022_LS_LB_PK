@@ -1,6 +1,6 @@
 package tree;
 
-import visitor.IVisitor;
+import visitor.iVisitor;
 
 public class Channel extends Node{
 
@@ -21,7 +21,7 @@ public class Channel extends Node{
     }
 
     @Override
-    public Node accept(IVisitor<Node> visitor) {
+    public Node accept(iVisitor visitor) {
         return visitor.visitChannel(this);
     }
 

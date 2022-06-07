@@ -1,28 +1,25 @@
 package visitor;
 
-import tree.Channel;
-import tree.Root;
-import tree.Satellite;
-import tree.Transponder;
+import tree.*;
 
-public class BaseVisitor<T> implements IVisitor<T>{
+public class BaseVisitor implements iVisitor {
     @Override
-    public T visitChannel(Channel ctx) {
+    public Node visitChannel(Channel ctx) {
         return null;
     }
 
     @Override
-    public T visitSatellite(Satellite ctx) {
+    public Node visitSatellite(Satellite ctx) {
         return null;
     }
 
     @Override
-    public T visitTransponder(Transponder ctx) {
+    public Node visitTransponder(Transponder ctx) {
         return null;
     }
 
     @Override
-    public T visitRoot(Root ctx) {
+    public Node visitRoot(Root ctx) {
         return null;
     }
 }

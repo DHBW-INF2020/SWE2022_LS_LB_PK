@@ -1,6 +1,7 @@
 package output;
 
 
+import java.io.*;
 import java.util.ArrayList;
 
 import tree.Channel;
@@ -11,9 +12,13 @@ import tree.Satellite;
 import tree.Transponder;
 import visitor.BaseVisitor;
 
-public class XmlOutput_Visitor extends BaseVisitor<Node> implements IOutput_Visitor {
+import javax.xml.transform.*;
+import javax.xml.transform.stream.StreamResult;
+import javax.xml.transform.stream.StreamSource;
 
-    public StringBuilder builder = new StringBuilder();
+public class XmlOutput_Visitor implements iOutput_Visitor {
+
+    private StringBuilder builder = new StringBuilder();
 
     @Override
     public Node visitTransponder(Transponder ctx) {
@@ -42,7 +47,8 @@ public class XmlOutput_Visitor extends BaseVisitor<Node> implements IOutput_Visi
     @Override
     public Node visitChannel(Channel ctx) {
         builder.append("<channel ");
-        addAttribute("name", ctx.getName(), true);
+        addAttribute("name", normalizeXML(ctx.getName()), true);
+        builder.append(">");
         addChildren(ctx.getChildren(), ctx.getChildrenType());
         builder.append("</channel>");
 
@@ -53,7 +59,7 @@ public class XmlOutput_Visitor extends BaseVisitor<Node> implements IOutput_Visi
     @Override
     public Node visitRoot(Root ctx) {
         builder.append("<?xml version=\"1.0\" encoding=\"utf-8\"?>");
-        addChildren(ctx.getChildren(), ctx.getType());
+        addChildren(ctx.getChildren(), ctx.getChildrenType());
         
         return null;
     }
@@ -88,4 +94,44 @@ public class XmlOutput_Visitor extends BaseVisitor<Node> implements IOutput_Visi
         }
 		
 	}
+
+    @Override
+    public String getParsedData() {
+        try {
+            File output = new File("output.xml");
+            FileWriter writer = new FileWriter(output);
+            writer.write(builder.toString());
+            writer.flush();
+            Source xmlInput = new StreamSource(new StringReader(builder.toString()));
+            StringWriter stringWriter = new StringWriter();
+            StreamResult xmlOutput = new StreamResult(stringWriter);
+            Transformer transformer = TransformerFactory.newInstance()
+                    .newTransformer(); // An identity transformer
+            transformer.setOutputProperty(OutputKeys.DOCTYPE_SYSTEM, "testing.dtd");
+            transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+            transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
+            transformer.transform(xmlInput, xmlOutput);
+            return stringWriter.toString();
+        }
+        catch (TransformerException e){
+            throw new RuntimeException(e);
+        }
+        catch (IOException e){
+            System.err.println(e.toString());
+            return null;
+        }
+    }
+
+    /**
+     * Escape forbidden characters for xml format
+     * @param input
+     * @return
+     */
+    private String normalizeXML(String input){
+        return input.replaceAll("&", "&amp;")
+                .replaceAll("\"", "&quot;")
+                .replaceAll("\'", "&apos;")
+                .replaceAll("<", "&lt;")
+                .replaceAll(">", "&gt;");
+    }
 }

@@ -2,12 +2,11 @@ package aggregates;
 
 import tree.*;
 import visitor.BaseVisitor;
-import visitor.IVisitor;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class ChannelsOverSatellites_Visitor extends BaseVisitor<Node> {
+public class ChannelsOverSatellites_Visitor extends BaseVisitor {
 
     HashMap<String, Channel> channels = new HashMap<>();
     Satellite currentSatellite = null;

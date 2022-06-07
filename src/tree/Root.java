@@ -1,10 +1,10 @@
 package tree;
 
-import visitor.IVisitor;
+import visitor.iVisitor;
 
 public class Root extends Node{
     @Override
-    public Node accept(IVisitor<Node> visitor) {
+    public Node accept(iVisitor visitor) {
         return visitor.visitRoot(this);
     }
 
