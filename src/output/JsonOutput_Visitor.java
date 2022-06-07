@@ -6,7 +6,7 @@ import visitor.BaseVisitor;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
-public class JsonOutput_Visitor extends BaseVisitor<Node> {
+public class JsonOutput_Visitor extends BaseVisitor<Node> implements IOutput_Visitor{
 
     public StringBuilder builder = new StringBuilder();
 
@@ -57,8 +57,21 @@ public class JsonOutput_Visitor extends BaseVisitor<Node> {
         return null;
     }
 
-    private void addChildren(ArrayList<Node> children, NodeType childrenType) {
-        if(children.size() > 0){
+
+    @Override
+	public  void addAttribute(String name, String value, Boolean first){
+        if(first) {
+            builder.append("\"" + name + "\": \"" + value + "\"");
+        }
+        else{
+            builder.append(",\"" + name + "\": \"" + value + "\"");
+        }
+    }
+
+
+	@Override
+	public void addChildren(ArrayList<Node> children, NodeType childrenType) {
+		if(children.size() > 0){
             builder.append(",");
             switch (childrenType){
                 case TRANSPONDER -> builder.append("\"transponders\":");
@@ -73,14 +86,5 @@ public class JsonOutput_Visitor extends BaseVisitor<Node> {
             }
             builder.append("]");
         }
-    }
-
-    private void addAttribute(String name, String value, Boolean first){
-        if(first) {
-            builder.append("\"" + name + "\": \"" + value + "\"");
-        }
-        else{
-            builder.append(",\"" + name + "\": \"" + value + "\"");
-        }
-    }
+	}
 }

@@ -11,16 +11,16 @@ import tree.Satellite;
 import tree.Transponder;
 import visitor.BaseVisitor;
 
-public class XmlOutput_Visitor extends BaseVisitor<Node> {
+public class XmlOutput_Visitor extends BaseVisitor<Node> implements IOutput_Visitor {
 
     public StringBuilder builder = new StringBuilder();
 
     @Override
     public Node visitTransponder(Transponder ctx) {
         builder.append("<transponder ");
-        addAttribute("pol", ctx.getPolarisation());
-        addAttribute("freq", String.valueOf(ctx.getFrequency()));
-        addAttribute("sym", ctx.getSymmetry());
+        addAttribute("pol", ctx.getPolarisation(), true);
+        addAttribute("freq", String.valueOf(ctx.getFrequency()), false);
+        addAttribute("sym", ctx.getSymmetry(), false);
         builder.append(">");
         addChildren(ctx.getChildren(), ctx.getChildrenType());
         builder.append("</transponder>");
@@ -30,8 +30,8 @@ public class XmlOutput_Visitor extends BaseVisitor<Node> {
     @Override
     public Node visitSatellite(Satellite ctx) {
         builder.append("<sat ");
-        addAttribute("sat", ctx.getName());
-        addAttribute("orbital", ctx.getOrbital());
+        addAttribute("sat", ctx.getName(), true);
+        addAttribute("orbital", ctx.getOrbital(), false);
         builder.append(">");
         addChildren(ctx.getChildren(), ctx.getChildrenType());
         builder.append("</sat>");
@@ -42,7 +42,7 @@ public class XmlOutput_Visitor extends BaseVisitor<Node> {
     @Override
     public Node visitChannel(Channel ctx) {
         builder.append("<channel ");
-        addAttribute("name", ctx.getName());
+        addAttribute("name", ctx.getName(), true);
         addChildren(ctx.getChildren(), ctx.getChildrenType());
         builder.append("</channel>");
 
@@ -58,8 +58,22 @@ public class XmlOutput_Visitor extends BaseVisitor<Node> {
         return null;
     }
 
-    private void addChildren(ArrayList<Node> children, NodeType childrenType) {
-        if(children.size() > 0){
+
+
+	@Override
+	public void addAttribute(String name, String value, Boolean first) {
+		if(first) {
+			builder.append(name + "=\"" + value + "\"");
+        }
+        else{
+            builder.append(" " + name + "=\"" + value + "\"");
+        }
+		
+	}
+
+	@Override
+	public void addChildren(ArrayList<Node> children, NodeType childrenType) {
+		if(children.size() > 0){
         	String endtag = "";
             switch (childrenType){
                 case TRANSPONDER -> { builder.append("<transponders>"); endtag = "</transponders>";}
@@ -72,9 +86,6 @@ public class XmlOutput_Visitor extends BaseVisitor<Node> {
             }
             builder.append(endtag);
         }
-    }
-
-    private void addAttribute(String name, String value){
-         builder.append(name + "=\"" + value + "\"");
-    }
+		
+	}
 }
