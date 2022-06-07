@@ -1,6 +1,7 @@
 import input.InputChannel;
 import input.InputTransponder;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Assertions;
 import tree.Channel;
 import tree.Node;
 import tree.Satellite;
@@ -34,6 +35,5 @@ class InputHandlerTest {
         sat.addChild(transponder1);
         sat.addChild(transponder2);
         satellites.add(sat);
-
     }
 }
