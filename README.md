@@ -15,9 +15,9 @@ Von: Lea Soffel, Pascal Kraft und Lukas Benner
 ### Ausführen
 1. Ausführen der jar mit:
     ```bash
-   java -jar target\SatelliteManagement-1.0.jar
+   java -jar .\target\SatelliteManagement-1.0.jar -a ch-sat -f json -o output.json input.json
     ```
 2. Ausführen mit Maven:
    ```bash
-   mvn exec:java
+   mvn exec:java -D exec.args="-a ch-sat -f xml -o output.xml input.json"
    ```

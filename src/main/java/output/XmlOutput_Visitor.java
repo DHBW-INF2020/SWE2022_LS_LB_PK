@@ -98,16 +98,11 @@ public class XmlOutput_Visitor implements iOutput_Visitor {
     @Override
     public String getParsedData() {
         try {
-            File output = new File("output.xml");
-            FileWriter writer = new FileWriter(output);
-            writer.write(builder.toString());
-            writer.flush();
             Source xmlInput = new StreamSource(new StringReader(builder.toString()));
             StringWriter stringWriter = new StringWriter();
             StreamResult xmlOutput = new StreamResult(stringWriter);
             Transformer transformer = TransformerFactory.newInstance()
                     .newTransformer(); // An identity transformer
-            transformer.setOutputProperty(OutputKeys.DOCTYPE_SYSTEM, "testing.dtd");
             transformer.setOutputProperty(OutputKeys.INDENT, "yes");
             transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
             transformer.transform(xmlInput, xmlOutput);
@@ -115,10 +110,6 @@ public class XmlOutput_Visitor implements iOutput_Visitor {
         }
         catch (TransformerException e){
             throw new RuntimeException(e);
-        }
-        catch (IOException e){
-            System.err.println(e.toString());
-            return null;
         }
     }
 

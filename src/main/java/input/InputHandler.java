@@ -22,7 +22,7 @@ public class InputHandler {
         Gson gson = new Gson();
         Root root = new Root();
 
-        try(Reader reader = Files.newBufferedReader(Paths.get("input.json"))){
+        try(Reader reader = Files.newBufferedReader(Paths.get(filename))){
 
             InputTransponder[] list = gson.fromJson(reader, InputTransponder[].class);
 
