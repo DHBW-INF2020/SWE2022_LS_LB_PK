@@ -11,10 +11,8 @@ public class Main {
         iVisitor aggregate = AggregateVisitorFactory.produceAggregateVisitor(Aggregate.CHANNEL_SAT);
         Node aggregatedTree = inputTree.accept(aggregate);
 
-        iOutput_Visitor outputVisitor =  OutputVisitorFactory.produceVisitor(Format.XML);
+        iOutput_Visitor outputVisitor =  OutputVisitorFactory.produceVisitor(Format.JSON);
         aggregatedTree.accept(outputVisitor);
         System.out.println(outputVisitor.getParsedData());
-
-
     }
 }
