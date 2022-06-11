@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="276px" preserveAspectRatio="none" style="width:275px;height:276px;background:#FFFFFF;" version="1.1" viewBox="0 0 275 276" width="275px" zoomAndPan="magnify"><defs><filter height="300%" id="f78ogvav3uldi" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"/><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/><feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"/></filter></defs><g><!--MD5=[2db5b3f59fdeeebe63ad76312ab6dd6e]
+cluster main.java.visitor--><polygon fill="#FFFFFF" filter="url(#f78ogvav3uldi)" points="16,6,137,6,144,29.6094,258,29.6094,258,269,16,269,16,6" style="stroke:#000000;stroke-width:1.5;"/><line style="stroke:#000000;stroke-width:1.5;" x1="16" x2="144" y1="29.6094" y2="29.6094"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="115" x="20" y="22.5332">main.java.visitor</text><!--MD5=[4ca97da6fe067aeb881755d84c9af42d]
+class iVisitor--><rect codeLine="11" fill="#FFFFFF" filter="url(#f78ogvav3uldi)" height="103.3438" id="iVisitor" style="stroke:#000000;stroke-width:1.5;" width="209" x="32.5" y="42"/><ellipse cx="114.25" cy="58" fill="#B4A7E5" rx="11" ry="11" style="stroke:#000000;stroke-width:1.0;"/><path d="M115.2031,54.6406 L115.2031,61.2969 L116.9219,61.2969 Q117.5313,61.2969 117.7969,61.5313 Q118.0625,61.7656 118.0625,62.1563 Q118.0625,62.5313 117.7969,62.7656 Q117.5313,63 116.9219,63 L111.7813,63 Q111.1719,63 110.9063,62.7656 Q110.6406,62.5313 110.6406,62.1406 Q110.6406,61.7656 110.9063,61.5313 Q111.1719,61.2969 111.7813,61.2969 L113.5,61.2969 L113.5,54.6406 L111.7813,54.6406 Q111.1719,54.6406 110.9063,54.4063 Q110.6406,54.1719 110.6406,53.7813 Q110.6406,53.4063 110.9063,53.1719 Q111.1719,52.9375 111.7813,52.9375 L116.9219,52.9375 Q117.5313,52.9375 117.7969,53.1719 Q118.0625,53.4063 118.0625,53.7813 Q118.0625,54.1719 117.7969,54.4063 Q117.5313,54.6406 116.9219,54.6406 L115.2031,54.6406 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="37" x="134.75" y="62.9102">iVisitor</text><line style="stroke:#000000;stroke-width:1.5;" x1="33.5" x2="240.5" y1="74" y2="74"/><line style="stroke:#000000;stroke-width:1.5;" x1="33.5" x2="240.5" y1="82" y2="82"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="151" x="38.5" y="97.4189">Node visitChannel(Channel ctx)</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="147" x="38.5" y="111.2549">Node visitSatellite(Satellite ctx)</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="197" x="38.5" y="125.0908">Node visitTransponder(Transponder ctx)</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="117" x="38.5" y="138.9268">Node visitRoot(Root ctx)</text><!--MD5=[3e8808cdd5c73013e0c260b444cd675f]
+class BaseVistor--><rect fill="#FFFFFF" filter="url(#f78ogvav3uldi)" height="48" id="BaseVistor" style="stroke:#000000;stroke-width:1.5;" width="92" x="91" y="205"/><ellipse cx="106" cy="221" fill="#ADD1B2" rx="11" ry="11" style="stroke:#000000;stroke-width:1.0;"/><path d="M108.7656,216.875 Q108.9219,216.6563 109.1094,216.5469 Q109.2969,216.4375 109.5156,216.4375 Q109.8906,216.4375 110.125,216.6953 Q110.3594,216.9531 110.3594,217.5625 L110.3594,219.0156 Q110.3594,219.625 110.125,219.8906 Q109.8906,220.1563 109.5156,220.1563 Q109.1719,220.1563 108.9688,219.9531 Q108.7656,219.7656 108.6563,219.25 Q108.6094,218.8906 108.4219,218.7031 Q108.0938,218.3281 107.4844,218.1094 Q106.875,217.8906 106.25,217.8906 Q105.4844,217.8906 104.8516,218.2188 Q104.2188,218.5469 103.7266,219.2969 Q103.2344,220.0469 103.2344,221.0781 L103.2344,222.1719 Q103.2344,223.4063 104.125,224.2266 Q105.0156,225.0469 106.6094,225.0469 Q107.5469,225.0469 108.2031,224.7969 Q108.5938,224.6406 109.0156,224.2031 Q109.2813,223.9375 109.4297,223.8594 Q109.5781,223.7813 109.7813,223.7813 Q110.1094,223.7813 110.3672,224.0391 Q110.625,224.2969 110.625,224.6406 Q110.625,224.9844 110.2813,225.3906 Q109.7813,225.9688 108.9844,226.2969 Q107.9063,226.75 106.6094,226.75 Q105.0938,226.75 103.8906,226.125 Q102.9063,225.625 102.2188,224.5547 Q101.5313,223.4844 101.5313,222.2031 L101.5313,221.0469 Q101.5313,219.7188 102.1484,218.5703 Q102.7656,217.4219 103.8594,216.8047 Q104.9531,216.1875 106.1875,216.1875 Q106.9219,216.1875 107.5703,216.3516 Q108.2188,216.5156 108.7656,216.875 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="60" x="120" y="225.9102">BaseVistor</text><line style="stroke:#000000;stroke-width:1.5;" x1="92" x2="182" y1="237" y2="237"/><line style="stroke:#000000;stroke-width:1.5;" x1="92" x2="182" y1="245" y2="245"/><!--MD5=[cee958b7c4dd4ff44ca084b5c47c6e50]
+reverse link iVisitor to BaseVistor--><path codeLine="20" d="M137,165.41 C137,179.68 137,193.69 137,204.83 " fill="none" id="iVisitor-backto-BaseVistor" style="stroke:#000000;stroke-width:1.0;"/><polygon fill="none" points="130,165.35,137,145.35,144,165.35,130,165.35" style="stroke:#000000;stroke-width:1.0;"/><!--MD5=[147659ddfbd025f317ea44c4dda90b3f]
+@startuml
+
+skinparam class {
+    ArrowColor black
+    BorderColor black
+    BackgroundColor white
+    NoteBorderColor black
+}
+
+package main.java.visitor {
+
+    interface iVisitor {
+        Node visitChannel(Channel ctx)
+        Node visitSatellite(Satellite ctx)
+        Node visitTransponder(Transponder ctx)
+        Node visitRoot(Root ctx)
+    }
+
+
+
+    iVisitor <|- - BaseVistor
+
+}
+
+
+
+
+
+@enduml
+
+PlantUML version 1.2022.0(Tue Jan 11 17:16:42 CET 2022)
+(GPL source distribution)
+Java Runtime: Java(TM) SE Runtime Environment
+JVM: Java HotSpot(TM) 64-Bit Server VM
+Default Encoding: Cp1252
+Language: de
+Country: DE
+--></g></svg>

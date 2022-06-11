@@ -1,0 +1,18 @@
+@startuml
+
+skinparam class {
+    ArrowColor black
+    BorderColor black
+    BackgroundColor white
+    NoteBorderColor black
+}
+
+package main.java {
+
+    class Main {
+        {static} +void main(String[] argv)
+    }
+}
+
+
+@enduml
