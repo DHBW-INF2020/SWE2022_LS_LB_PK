@@ -1,0 +1,23 @@
+[
+  {
+    "pol": "H",
+    "sat": "BulgariaSat-1",
+    "orbital": "1.9° E",
+    "freq": "12072",
+    "sym": "30000",
+    "channels": [
+      {
+        "sid": "606",
+        "type": "TV",
+        "name": "Fuel TV H",
+        "v_pid": "2030",
+        "a_pid": "2031 eng",
+        "compression": "MPEG-4",
+        "url": "http:\/\/fuel.tv\/",
+        "enc": "Bulcrypt",
+        "package": " ",
+        "res": "HD"
+      }
+    ]
+  }
+]
