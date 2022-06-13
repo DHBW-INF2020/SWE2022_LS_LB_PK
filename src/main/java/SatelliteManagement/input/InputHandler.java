@@ -11,11 +11,18 @@ import java.util.*;
 
 import static java.lang.Integer.parseInt;
 
+/**
+ * A class to read the json input and create a tree
+ * @author Lukas Benner
+ * @version 1.0
+ */
 public class InputHandler {
     
     /**
-     * @param filename 
-     * @return Node
+     * Creates a tree of Nodes from the input file
+     *
+     * @param filename Path to the input file
+     * @return Root Node of the input tree
      */
     // JsonReader
     public static Node parseJsonToTree(String filename) {
@@ -35,6 +42,12 @@ public class InputHandler {
         return root;
     }
 
+    /**
+     * Turns a list of InputTransponders into a list of Satellites
+     *
+     * @param inputTransponders A list of InputTransponders
+     * @return A list of Satellites
+     */
     protected static ArrayList<Node> getSatellitesFromInputFormat(ArrayList<InputTransponder> inputTransponders) {
         HashMap<String, Satellite> satellites = new HashMap<>();
         for(InputTransponder inputTrasponder : inputTransponders){

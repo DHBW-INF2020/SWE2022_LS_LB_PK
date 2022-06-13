@@ -10,10 +10,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
- * @author Lea
+ * A Visitor that aggregates satellites over transponders
  *
+ * @author Lukas Benner
+ * @version 1.0
  */
-public class SatellitesOverTransponders_Visitor extends BaseVisitor {
+public class SatellitesOverTranspondersVisitor extends BaseVisitor {
 
 	HashMap<String, Satellite> satellites = new HashMap<>();
 

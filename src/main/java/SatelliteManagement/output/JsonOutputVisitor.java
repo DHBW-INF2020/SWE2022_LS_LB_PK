@@ -8,7 +8,13 @@ import SatelliteManagement.tree.*;
 
 import java.util.ArrayList;
 
-public class JsonOutput_Visitor implements iOutput_Visitor {
+/**
+ * A visitor that creates a json string from a given tree
+ *
+ * @author Lukas Benner
+ * @version 1.0
+ */
+public class JsonOutputVisitor implements iOutputVisitor {
 
     private final StringBuilder builder = new StringBuilder();
 

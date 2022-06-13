@@ -13,7 +13,7 @@ import static org.hamcrest.beans.SamePropertyValuesAs.samePropertyValuesAs;
 import static org.junit.jupiter.api.Assertions.*;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-class InputHandlerTest {
+public class InputHandlerTest {
     private final ArrayList<InputTransponder> inputTransponders = new ArrayList<>();
     @BeforeAll
     public void init(){
@@ -25,7 +25,7 @@ class InputHandlerTest {
     }
 
     @Test
-    void getSatellitesFromInputFormatTest1() {
+    public void getSatellitesFromInputFormatTest1() {
 
         ArrayList<Node> expected = new ArrayList<>();
         Satellite sat = new Satellite("BulgariaSat-1", "1.9° E");
@@ -45,7 +45,7 @@ class InputHandlerTest {
     }
 
     @Test
-    void getSatellitesFromInputFormatTest2() {
+    public void getSatellitesFromInputFormatTest2() {
 
         ArrayList<Node> expected = new ArrayList<>();
         Satellite sat = new Satellite("BulgariaSat-1", "1.9° E");

@@ -15,7 +15,13 @@ import javax.xml.transform.*;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
-public class XmlOutput_Visitor implements iOutput_Visitor {
+/**
+ * A visitor that creates a xml string from a given tree
+ *
+ * @author Lea Soffel
+ * @version 1.0
+ */
+public class XmlOutputVisitor implements iOutputVisitor {
 
     private final StringBuilder builder = new StringBuilder();
 

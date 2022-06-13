@@ -2,6 +2,11 @@ package SatelliteManagement.input;
 
 import java.util.ArrayList;
 
+/**
+ * A class to easily map between json and java objects
+ * @author Lukas Benner
+ * @version 1.0
+ */
 public class InputTransponder {
     public String sat;
     public String orbital;

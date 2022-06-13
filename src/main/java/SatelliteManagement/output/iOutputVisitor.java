@@ -10,10 +10,12 @@ import SatelliteManagement.tree.NodeType;
 import SatelliteManagement.visitor.iVisitor;
 
 /**
- * @author Lea
+ * An abstract class that extends iVisitor to centralize redundant methods of output visitors.
  *
+ * @author Lea
+ * @version 1.0
  */
-public interface iOutput_Visitor extends iVisitor {
+public interface iOutputVisitor extends iVisitor {
 	
 	/**
 	 * method to add an attribute and its value
@@ -30,6 +32,9 @@ public interface iOutput_Visitor extends iVisitor {
 	void addChildren(ArrayList<Node> children, NodeType childrenType);
 
 
+	/**
+	 * @return A string with the parsed data
+	 */
 	String getParsedData();
 
 }

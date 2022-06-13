@@ -175,16 +175,5 @@ package main.java {
     }
 }
 
-package main.java.visitor {
-
-    interface iVisitor {
-        Node visitChannel(Channel ctx)
-        Node visitSatellite(Satellite ctx)
-        Node visitTransponder(Transponder ctx)
-        Node visitRoot(Root ctx)
-    }
-    iVisitor <|-- BaseVistor
-}
-
 
 @enduml

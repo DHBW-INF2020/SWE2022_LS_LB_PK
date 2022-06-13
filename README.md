@@ -21,3 +21,16 @@ Von: Lea Soffel, Pascal Kraft und Lukas Benner
    ```bash
    mvn exec:java -D exec.args="-a ch-sat -f xml -o output.xml input.json"
    ```
+   
+## Generieren der Dokumentation
+Dokumentation der App:
+```bash
+mvn javadoc:jar
+```
+
+Dokumentation der Tests:
+```bash
+mvn javadoc:test-jar
+```
+
+Das Ergebnis liegt jeweils in `documentation`

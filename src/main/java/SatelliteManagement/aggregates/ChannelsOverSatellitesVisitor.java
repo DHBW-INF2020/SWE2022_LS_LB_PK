@@ -6,7 +6,13 @@ import SatelliteManagement.visitor.BaseVisitor;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class ChannelsOverSatellites_Visitor extends BaseVisitor {
+/**
+ * A Visitor that aggregates channels over satellites
+ *
+ * @author Lea Soffel
+ * @version 1.0
+ */
+public class ChannelsOverSatellitesVisitor extends BaseVisitor {
 
     HashMap<String, Channel> channels = new HashMap<>();
     Satellite currentSatellite = null;

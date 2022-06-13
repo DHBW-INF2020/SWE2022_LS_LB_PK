@@ -2,11 +2,9 @@ package SatelliteManagement;
 
 import SatelliteManagement.aggregates.AggregateVisitorFactory;
 import SatelliteManagement.output.OutputVisitorFactory;
-import SatelliteManagement.output.iOutput_Visitor;
-import SatelliteManagement.aggregates.*;
+import SatelliteManagement.output.iOutputVisitor;
 import SatelliteManagement.input.CliArgs;
 import SatelliteManagement.input.InputHandler;
-import SatelliteManagement.output.*;
 import SatelliteManagement.tree.Node;
 import SatelliteManagement.visitor.iVisitor;
 
@@ -20,10 +18,10 @@ public class Main {
         CliArgs args = CliArgs.getInstance(argv);
 
         Node inputTree = InputHandler.parseJsonToTree(args.getInputPath());
-        iVisitor aggregate = AggregateVisitorFactory.produceAggregateVisitor(args.getAggregate());
+        iVisitor aggregate = AggregateVisitorFactory.produceVisitor(args.getAggregate());
         Node aggregatedTree = inputTree.accept(aggregate);
 
-        iOutput_Visitor outputVisitor =  OutputVisitorFactory.produceVisitor(args.getOutputFormat());
+        iOutputVisitor outputVisitor =  OutputVisitorFactory.produceVisitor(args.getOutputFormat());
         aggregatedTree.accept(outputVisitor);
 
         Writer fstream = null;

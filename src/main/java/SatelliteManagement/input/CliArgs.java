@@ -7,19 +7,32 @@ import com.beust.jcommander.Parameter;
 
 import java.util.Locale;
 
+/**
+ * Class to handle the user input.
+ *
+ * @author Lukas Benner
+ * @version 1.0
+ */
 public class CliArgs {
     @Parameter(names = {"-o", "--output"}, description = "Output path", required = true)
-    private final String outputPath = "SatelliteManagement/output";
+    private String outputPath = "SatelliteManagement/output";
 
     @Parameter(names = {"-a", "--aggregate"}, description = "How the data should be aggregated", required = true)
-    private final String aggregate = "";
+    private String aggregate = "";
 
     @Parameter(names = {"-f", "--format"}, description = "How the data should be aggregated", required = true)
-    private final String outputFormat = "";
+    private String outputFormat = "";
 
     @Parameter(description = "Input path", required = true)
-    private final String inputPath = "";
-    
+    private String inputPath = "";
+
+
+    /**
+     * Gets an instance of the class.
+     *
+     * @param argv the input arguments as an array of strings
+     * @return a CliArgs object
+     */
     public static CliArgs getInstance(String[] argv){
         CliArgs args = new CliArgs();
         JCommander.newBuilder()
@@ -28,7 +41,13 @@ public class CliArgs {
                 .parse(argv);
         return args;
     }
-    
+
+    /**
+     * Gets the aggregate based on the user input
+     *
+     * @return A value from the Aggregate enum
+     * @exception RuntimeException if the user input matches no aggregate
+     */
     public Aggregate getAggregate(){
         Aggregate ag;
         switch (aggregate.toLowerCase(Locale.ENGLISH)){
@@ -39,11 +58,19 @@ public class CliArgs {
         return ag;
     }
 
+    /**
+     * @return The output path specified by the user
+     */
     public String getOutputPath(){
         return outputPath;
-        //No Validation here because of the validation of the arguments itself
     }
 
+    /**
+     * Gets the output format based on the user input
+     *
+     * @return A value from the Format enum
+     * @exception RuntimeException if the user input matches no format
+     */
     public Format getOutputFormat(){
         Format format;
         switch (outputFormat.toLowerCase(Locale.ENGLISH)){
@@ -54,6 +81,9 @@ public class CliArgs {
         return format;
     }
 
+    /**
+     * @return The input path specified by the user
+     */
     public String getInputPath(){
         return inputPath;
     }
