@@ -1,0 +1,190 @@
+@startuml
+
+skinparam class {
+    ArrowColor black
+    BorderColor black
+    BackgroundColor white
+    NoteBorderColor black
+}
+
+package main.java.visitor {
+
+    interface iVisitor {
+        Node visitChannel(Channel ctx)
+        Node visitSatellite(Satellite ctx)
+        Node visitTransponder(Transponder ctx)
+        Node visitRoot(Root ctx)
+    }
+
+    iVisitor <|-- BaseVistor
+}
+
+package "main.java.tree" {
+
+    enum NodeType {
+        SATTELITE,
+        TRANSPONDER,
+        CHANNEL,
+        ROOT
+    }
+
+    abstract class Node {
+        -ArrayList<Node> _children
+        -NodeType _childrenType
+
+        +ArrayList<Node> getChildren()
+        +void setChildren(ArrayList<Node> children)
+        +void clearChildren()
+        +void addChildren(Node child)
+        {abstract} +NodeType getType()
+        {abstract} +Node accept(iVistor visitor)
+    }
+
+    class Transponder {
+        -String _polarisation
+        -int _frequency
+        -String _symmetry
+
+        +String getPolarisation()
+        +int getPolarisation()
+        +String getSymmetry()
+    }
+
+    class Satellite {
+        -String _name
+        -String _orbital
+
+        +String getOrbital()
+        +String getName()
+    }
+
+    class Channel{
+        -int _sid
+        -String _name
+
+        +String getName()
+        +int getSid()
+    }
+    Root <|-- Node
+    Channel <|-- Node
+    Channel --o NodeType
+    Satellite <|-- Node
+    Satellite --o NodeType
+    Transponder <|-- Node
+    Transponder --o NodeType
+    Node --o NodeType
+}
+
+package main.java.output {
+    enum Format {
+        XML,
+        JSON
+    }
+
+    interface iOutputVisitor{
+        void addAttribute(String name, String value)
+        void addChildren(ArrayList<Node> children, NodeType childrenType)
+        String getParsedData()
+    }
+
+    class JsonOutputVisitor {
+        -String normalizedJSON(String input)
+    }
+
+    class OutputVisitorFactory {
+        {static} iOutputVisitor produceVisitor(Format format)
+    }
+
+    class XmlOutputVisitor {
+        -String normalizedXML(String input)
+    }
+}
+iOutputVisitor <|-- JsonOutputVisitor
+iOutputVisitor <|-- XmlOutputVisitor
+
+package main.java.input {
+    class AggregateArgValidator {
+        implements IParameterValidator
+    }
+
+    class CliArgs {
+        -String outputPath
+        -String aggregate
+        -String outputFormat
+        -String inputFormat
+
+        {static} +CliArgs getInstance(String[] argv)
+        +Aggregate getAggregate()
+        +String getOutputPath()
+        +Format getOutputFormat()
+        +String getInputPath()
+    }
+
+    class FormatArgValidator {
+        implements IParameterValidator
+    }
+
+    class InputChannel {
+        +String sid
+        +String name
+
+        {static} +InputChannel(String sid, String name)
+    }
+
+    class InputHandler {
+        {static} +Node parseJsonToTree(String filename)
+        {static} #ArrayList<Node> getSatellitesFromInputFormat(InputTransponder[] inputTransponders) 
+    }   
+
+    class InputTransponder {
+        +String sat
+        +String orbital
+        +String pol
+        +String freq
+        +String sym
+        +ArrayList<InputChannel> channels
+
+        {static} +InputTransponder(String sat, String orbital, String pol, String freq, String sym, ArrayList<InputChannel> channels)
+    }
+}
+
+package main.java.aggregates {
+    enum Aggregate {
+        CHANNEL_SAT,
+        SAT_TRANSPONDER
+    }
+
+    class AggregateVisitorFactory {
+        {static} iVistitor produceAggregateVisitor(Aggregate aggregate)
+    }
+
+    class ChannelsOverSatellitesVisitor {
+        +HashMap<String, Channel> channels public?
+        +Satellite currentSatellite   
+    } 
+
+    class SatellitesOverTranspondersVisitor {
+        +HashMap<String, Satellite> satellites
+    }
+}
+
+package main.java {
+
+    class Main {
+        {static} +void main(String[] argv)
+    }
+}
+
+package main.java.visitor {
+
+    interface iVisitor {
+        Node visitChannel(Channel ctx)
+        Node visitSatellite(Satellite ctx)
+        Node visitTransponder(Transponder ctx)
+        Node visitRoot(Root ctx)
+    }
+    iVisitor <|-- BaseVistor
+}
+
+
+@enduml
