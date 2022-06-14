@@ -11,9 +11,19 @@ import static org.assertj.core.api.Assertions.fail;
 
 import java.util.ArrayList;
 
+/**
+ * Class to test InputHandler
+ * @author Lea Soffel
+ * @version 1.0
+ */
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class InputHandlerTest {
+	// variable to store test input transponders 
     private final ArrayList<InputTransponder> inputTransponders = new ArrayList<>();
+    
+    /**
+     * Build the input transponders by adding a channel and other required attributes
+     */
     @BeforeAll
     public void init(){
         ArrayList<InputChannel> channels = new ArrayList<>();
@@ -23,9 +33,13 @@ public class InputHandlerTest {
         inputTransponders.add(new InputTransponder("BulgariaSat-1", "1.9° E", "V", "13072", "40000", channels));
     }
 
+    /**
+     * Test the InputHandler method to get the Satellites out of the test array of transponders
+     */
     @Test
     public void getSatellitesFromInputFormatTest1() {
 
+    	// build the expected Satellite
         ArrayList<Node> expected = new ArrayList<>();
         Satellite sat = new Satellite("BulgariaSat-1", "1.9° E");
         Transponder transponder1 = new Transponder("H", "12072", "30000");
@@ -39,10 +53,15 @@ public class InputHandlerTest {
         sat.addChild(transponder2);
         expected.add(sat);
 
+        // generate Satellite by calling the tested method with test input 
         var actual = InputHandler.getSatellitesFromInputFormat(inputTransponders);
+        // check if expected Satellite equals actual generated Satellite
         assertThat(actual).usingRecursiveComparison().isEqualTo(expected);
     }
 
+    /**
+     * 
+     */
     @Test
     public void getSatellitesFromInputFormatTest2() {
 

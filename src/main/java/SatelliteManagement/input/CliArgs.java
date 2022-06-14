@@ -14,16 +14,21 @@ import java.util.Locale;
  * @version 1.0
  */
 public class CliArgs {
+	
+	// variable to store the path to the output file
     @Parameter(names = {"-o", "--output"}, description = "Output path", required = true)
     private String outputPath = "SatelliteManagement/output";
 
+    // variable to store the chosen aggregate
     @Parameter(names = {"-a", "--aggregate"}, description = "How the data should be aggregated", required = true)
     private String aggregate = "";
 
+    // variable to store the chosen output format 
     @Parameter(names = {"-f", "--format"}, description = "How the data should be aggregated", required = true)
     private String outputFormat = "";
 
-    @Parameter(description = "Input path", required = true)
+    // variable to store the path to the input file
+    @Parameter(names = {"-i", "--input"},description = "Input path", required = true)
     private String inputPath = "";
 
 
@@ -59,6 +64,7 @@ public class CliArgs {
     }
 
     /**
+     * Getter for outputPath
      * @return The output path specified by the user
      */
     public String getOutputPath(){
@@ -82,6 +88,7 @@ public class CliArgs {
     }
 
     /**
+     * Getter for inputPath
      * @return The input path specified by the user
      */
     public String getInputPath(){

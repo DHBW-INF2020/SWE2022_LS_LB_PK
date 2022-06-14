@@ -6,9 +6,9 @@ package SatelliteManagement.tree;
 import SatelliteManagement.visitor.iVisitor;
 
 /**
- * 
- * @author Lea
- *
+ * Class to represent a Satellite in tree
+ * @author Lea Soffel
+ * @version 1.0
  */
 public class Satellite extends Node{
 
@@ -39,6 +39,7 @@ public class Satellite extends Node{
 	}
 
 	/**
+	 * Getter for name of Satellite
 	 * @return _name
 	 */
 	public String getName() {
@@ -47,6 +48,7 @@ public class Satellite extends Node{
 
 
 	/**
+	 * Getter for orbital of Satellite
 	 * @return _orbital
 	 */
 	public String getOrbital() {

@@ -2,6 +2,12 @@ package SatelliteManagement.visitor;
 
 import SatelliteManagement.tree.*;
 
+/**
+ * Class represents a base visitor 
+ * @author Lukas Benner
+ * @version 1.0
+ * 
+ */
 public class BaseVisitor implements iVisitor {
     @Override
     public Node visitChannel(Channel ctx) {

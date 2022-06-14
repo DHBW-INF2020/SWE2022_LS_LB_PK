@@ -8,11 +8,20 @@ import org.junit.jupiter.api.TestInstance;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.fail;
 
-
+/**
+ * Class to test both aggregates
+ * @author Lukas Benner
+ *
+ */
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class AggregateVisitorsTest {
+	
+	// define root for test tree
     private final Node inputroot = new Root();
 
+    /**
+     * Build test tree as input for the aggregate tests
+     */
     @BeforeAll
     public void init(){
         Node sat1 = new Satellite("BulgariaSat-1", "1.9° E");
@@ -28,8 +37,12 @@ public class AggregateVisitorsTest {
         inputroot.addChild(sat2);
     }
 
+    /**
+     * Method to test aggregate ChannelsOverSatelittes
+     */
     @Test
     public void ChannelsOverSatellitesTest(){
+    	// build expected output tree
         Node expectedRoot = new Root();
         Node channel = new Channel("RTL", 100);
         Node sat1 = new Satellite("BulgariaSat-1", "1.9° E");
@@ -38,12 +51,18 @@ public class AggregateVisitorsTest {
         channel.addChild(sat2);
         expectedRoot.addChild(channel);
 
+        // generate output tree by calling the tested method 
         Node actualRoot = inputroot.accept(new ChannelsOverSatellitesVisitor());
+        // check if expected output tree equals actual output tree
         assertThat(actualRoot).usingRecursiveComparison().isEqualTo(expectedRoot);
     }
 
+    /**
+     * Method to test aggregate SatellitesOverTransponders
+     */
     @Test
     public void SatellitesOverTranspondersTest(){
+    	// build expected output tree
         Node expectedRoot = new Root();
         Node sat1 = new Satellite("BulgariaSat-1", "1.9° E");
         Node trans1 = new Transponder("H", "30000", "30");
@@ -54,7 +73,9 @@ public class AggregateVisitorsTest {
         expectedRoot.addChild(sat1);
         expectedRoot.addChild(sat2);
 
+        // generate output tree by calling the tested method 
         Node actualRoot = inputroot.accept(new SatellitesOverTranspondersVisitor());
+        // check if expected output tree equals actual output tree
         assertThat(actualRoot).usingRecursiveComparison().isEqualTo(expectedRoot);
     }
 
