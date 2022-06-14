@@ -15,8 +15,10 @@ public class Satellite extends Node{
 	private final String _name;
 	private final String _orbital;
 
+
 	/**
 	 * Constructor for Satellite
+	 *
 	 * @param name
 	 * @param orbital
 	 */
@@ -27,12 +29,13 @@ public class Satellite extends Node{
 
 	/**
 	 * Copy Constructor for Satellite
-	 * @param origin
+	 *
+	 * @param other
 	 */
-	public Satellite(Satellite origin){
-		this._name = origin._name;
-		this._orbital = origin._orbital;
-		this.setChildren(origin.getChildren());
+	public Satellite(Satellite other){
+		this._name = other._name;
+		this._orbital = other._orbital;
+		this.setChildren(other.getChildren());
 	}
 
 	/**
