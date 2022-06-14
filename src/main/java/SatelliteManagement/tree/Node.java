@@ -13,8 +13,6 @@ public abstract class Node {
 
 	// List with all child nodes
     private ArrayList<Node> _children;
-    // variable to store type of child nodes
-    private NodeType _childrenType;
 
     public Node(){
         _children = new ArrayList<>();
@@ -26,14 +24,6 @@ public abstract class Node {
      * @return Node
      */
     public abstract Node accept(iVisitor visitor);
-
-	/**
-	 * Getter for childrenType
-	 * @return the _childrenType
-	 */
-	public NodeType getChildrenType() {
-		return _childrenType;
-	}
 
 	/**
 	 * Getter for array of children
@@ -49,7 +39,6 @@ public abstract class Node {
 	 */
 	public void setChildren(ArrayList<Node> children){
 		this._children = children;
-		this._childrenType = children.get(0).getType();
 	}
 
 	/**
@@ -57,7 +46,6 @@ public abstract class Node {
 	 */
 	public void clearChildren(){
 		this._children = new ArrayList<>();
-		this._childrenType = null;
 	}
 
 	/**
@@ -66,12 +54,11 @@ public abstract class Node {
 	 */
 	public void addChild(Node child){
 		this._children.add(child);
-		this._childrenType = child.getType();
 	}
 
 	/**
 	 * Getter for the Type of node
 	 * @return nodeType
 	 */
-	public abstract NodeType getType();
+	public abstract String getCollectionName();
 }

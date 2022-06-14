@@ -61,8 +61,8 @@ public class Satellite extends Node{
 	}
 
 	@Override
-	public NodeType getType() {
-		return NodeType.SATTELITE;
+	public String getCollectionName() {
+		return "satellites";
 	}
 
 

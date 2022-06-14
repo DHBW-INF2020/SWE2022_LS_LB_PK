@@ -1,12 +1,5 @@
-/**
- * 
- */
 package SatelliteManagement.output;
 
-import java.util.ArrayList;
-
-import SatelliteManagement.tree.Node;
-import SatelliteManagement.tree.NodeType;
 import SatelliteManagement.visitor.iVisitor;
 
 /**

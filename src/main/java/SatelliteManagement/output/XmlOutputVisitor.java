@@ -6,7 +6,6 @@ import java.util.ArrayList;
 
 import SatelliteManagement.tree.Channel;
 import SatelliteManagement.tree.Node;
-import SatelliteManagement.tree.NodeType;
 import SatelliteManagement.tree.Root;
 import SatelliteManagement.tree.Satellite;
 import SatelliteManagement.tree.Transponder;
@@ -32,7 +31,7 @@ public class XmlOutputVisitor implements iOutputVisitor {
         addAttribute("freq", String.valueOf(ctx.getFrequency()), false);
         addAttribute("sym", ctx.getSymmetry(), false);
         builder.append(">");
-        addChildren(ctx.getChildren(), ctx.getChildrenType());
+        addChildren(ctx.getChildren());
         builder.append("</transponder>");
         return null;
     }
@@ -40,10 +39,10 @@ public class XmlOutputVisitor implements iOutputVisitor {
     @Override
     public Node visitSatellite(Satellite ctx) {
         builder.append("<sat ");
-        addAttribute("sat", ctx.getName(), true);
+        addAttribute("name", ctx.getName(), true);
         addAttribute("orbital", ctx.getOrbital(), false);
         builder.append(">");
-        addChildren(ctx.getChildren(), ctx.getChildrenType());
+        addChildren(ctx.getChildren());
         builder.append("</sat>");
 
         return null;
@@ -54,7 +53,7 @@ public class XmlOutputVisitor implements iOutputVisitor {
         builder.append("<channel ");
         addAttribute("name", normalizeXML(ctx.getName()), true);
         builder.append(">");
-        addChildren(ctx.getChildren(), ctx.getChildrenType());
+        addChildren(ctx.getChildren());
         builder.append("</channel>");
 
         return null;
@@ -63,8 +62,7 @@ public class XmlOutputVisitor implements iOutputVisitor {
     @Override
     public Node visitRoot(Root ctx) {
         builder.append("<?xml version=\"1.0\" encoding=\"utf-8\"?>");
-        addChildren(ctx.getChildren(), ctx.getChildrenType());
-
+        addChildren(ctx.getChildren());
         return null;
     }
 
@@ -88,29 +86,23 @@ public class XmlOutputVisitor implements iOutputVisitor {
 
 	private void addAttribute(String name, String value, Boolean first) {
 		if(first) {
-			builder.append(name + "=\"" + value + "\"");
+			builder.append(name).append("=\"").append(value).append("\"");
         }
         else{
-            builder.append(" " + name + "=\"" + value + "\"");
+            builder.append(" ").append(name).append("=\"").append(value).append("\"");
         }
 
 	}
 
-	private void addChildren(ArrayList<Node> children, NodeType childrenType) {
+	private void addChildren(ArrayList<Node> children) {
 		if(children.size() > 0){
-        	String endtag = "";
-            switch (childrenType){
-                case TRANSPONDER -> { builder.append("<transponders>"); endtag = "</transponders>";}
-                case SATTELITE -> { builder.append("<satellites>"); endtag = "</satellites>"; }
-                case CHANNEL -> { builder.append("<channels>"); endtag = "</channels>"; }
-            }
+            builder.append("<").append(children.get(0).getCollectionName()).append(">");
             for (int i = 0; i < children.size(); i++) {
                 Node child = children.get(i);
                 child.accept(this);
             }
-            builder.append(endtag);
+            builder.append("</").append(children.get(0).getCollectionName()).append(">");
         }
-
 	}
 
     /**

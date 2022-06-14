@@ -13,7 +13,7 @@ public class Root extends Node{
     }
 
     @Override
-    public NodeType getType() {
-        return NodeType.ROOT;
+    public String getCollectionName() {
+        throw new RuntimeException("Root can not be a child of an other node!");
     }
 }

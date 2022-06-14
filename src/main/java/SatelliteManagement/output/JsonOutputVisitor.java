@@ -24,7 +24,7 @@ public class JsonOutputVisitor implements iOutputVisitor {
         addAttribute("pol", ctx.getPolarisation(), true);
         addAttribute("freq", String.valueOf(ctx.getFrequency()), false);
         addAttribute("sym", ctx.getSymmetry(), false);
-        addChildren(ctx.getChildren(), ctx.getChildrenType());
+        addChildren(ctx.getChildren());
         builder.append("}");
         return null;
     }
@@ -34,7 +34,7 @@ public class JsonOutputVisitor implements iOutputVisitor {
         builder.append("{");
         addAttribute("sat", ctx.getName(), true);
         addAttribute("orbital", ctx.getOrbital(), false);
-        addChildren(ctx.getChildren(), ctx.getChildrenType());
+        addChildren(ctx.getChildren());
         builder.append("}");
 
         return null;
@@ -44,7 +44,7 @@ public class JsonOutputVisitor implements iOutputVisitor {
     public Node visitChannel(Channel ctx) {
         builder.append("{");
         addAttribute("channel", normalizeJSON(ctx.getName()), true);
-        addChildren(ctx.getChildren(), ctx.getChildrenType());
+        addChildren(ctx.getChildren());
         builder.append("}");
 
         return null;
@@ -53,13 +53,12 @@ public class JsonOutputVisitor implements iOutputVisitor {
 
     @Override
     public Node visitRoot(Root ctx) {
-        builder.append("[");
         ArrayList<Node> children = ctx.getChildren();
+        builder.append("[");
         for (int i = 0; i < children.size(); i++) {
             Node child = children.get(i);
             child.accept(this);
             if(i < children.size()-1) builder.append(",");
-
         }
         builder.append("]");
         return null;
@@ -74,21 +73,18 @@ public class JsonOutputVisitor implements iOutputVisitor {
 
 	private void addAttribute(String name, String value, Boolean first){
         if(first) {
-            builder.append("\"" + name + "\": \"" + value + "\"");
+            builder.append("\"").append(name).append("\": \"").append(value).append("\"");
         }
         else{
-            builder.append(",\"" + name + "\": \"" + value + "\"");
+            builder.append(",\"").append(name).append("\": \"").append(value).append("\"");
         }
     }
 
-	private void addChildren(ArrayList<Node> children, NodeType childrenType) {
+	private void addChildren(ArrayList<Node> children) {
 		if(children.size() > 0){
             builder.append(",");
-            switch (childrenType){
-                case TRANSPONDER -> builder.append("\"transponders\":");
-                case SATTELITE -> builder.append("\"satellites\":");
-                case CHANNEL -> builder.append("\"channels\":");
-            }
+            builder.append(children.get(0).getCollectionName());
+            builder.append(":");
             builder.append("[");
             for (int i = 0; i < children.size(); i++) {
                 Node child = children.get(i);
