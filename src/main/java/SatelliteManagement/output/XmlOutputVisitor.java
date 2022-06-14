@@ -121,7 +121,7 @@ public class XmlOutputVisitor implements iOutputVisitor {
     /**
      * Escape forbidden characters for xml format
      * @param input
-     * @return
+     * @return input with the correct notation of the forbidden characters
      */
     private String normalizeXML(String input){
         return input.replaceAll("&", "&amp;")

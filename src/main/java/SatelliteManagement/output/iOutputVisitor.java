@@ -12,7 +12,7 @@ import SatelliteManagement.visitor.iVisitor;
 /**
  * An abstract class that extends iVisitor to centralize redundant methods of output visitors.
  *
- * @author Lea
+ * @author Lea Soffel
  * @version 1.0
  */
 public interface iOutputVisitor extends iVisitor {
