@@ -65,9 +65,14 @@ public class JsonOutputVisitor implements iOutputVisitor {
         return null;
     }
 
-
     @Override
-	public  void addAttribute(String name, String value, Boolean first){
+    public String getParsedData() {
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        JsonElement je = JsonParser.parseString(builder.toString());
+        return gson.toJson(je);
+    }
+
+	private void addAttribute(String name, String value, Boolean first){
         if(first) {
             builder.append("\"" + name + "\": \"" + value + "\"");
         }
@@ -76,9 +81,7 @@ public class JsonOutputVisitor implements iOutputVisitor {
         }
     }
 
-
-	@Override
-	public void addChildren(ArrayList<Node> children, NodeType childrenType) {
+	private void addChildren(ArrayList<Node> children, NodeType childrenType) {
 		if(children.size() > 0){
             builder.append(",");
             switch (childrenType){
@@ -95,13 +98,6 @@ public class JsonOutputVisitor implements iOutputVisitor {
             builder.append("]");
         }
 	}
-
-    @Override
-    public String getParsedData() {
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        JsonElement je = JsonParser.parseString(builder.toString());
-        return gson.toJson(je);
-    }
 
     /**
      * Escape forbidden characters for json format

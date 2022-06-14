@@ -60,45 +60,13 @@ public class XmlOutputVisitor implements iOutputVisitor {
         return null;
     }
 
-
     @Override
     public Node visitRoot(Root ctx) {
         builder.append("<?xml version=\"1.0\" encoding=\"utf-8\"?>");
         addChildren(ctx.getChildren(), ctx.getChildrenType());
-        
+
         return null;
     }
-
-
-
-	@Override
-	public void addAttribute(String name, String value, Boolean first) {
-		if(first) {
-			builder.append(name + "=\"" + value + "\"");
-        }
-        else{
-            builder.append(" " + name + "=\"" + value + "\"");
-        }
-		
-	}
-
-	@Override
-	public void addChildren(ArrayList<Node> children, NodeType childrenType) {
-		if(children.size() > 0){
-        	String endtag = "";
-            switch (childrenType){
-                case TRANSPONDER -> { builder.append("<transponders>"); endtag = "</transponders>";}
-                case SATTELITE -> { builder.append("<satellites>"); endtag = "</satellites>"; }
-                case CHANNEL -> { builder.append("<channels>"); endtag = "</channels>"; }
-            }
-            for (int i = 0; i < children.size(); i++) {
-                Node child = children.get(i);
-                child.accept(this);
-            }
-            builder.append(endtag);
-        }
-		
-	}
 
     @Override
     public String getParsedData() {
@@ -117,6 +85,33 @@ public class XmlOutputVisitor implements iOutputVisitor {
             throw new RuntimeException(e);
         }
     }
+
+	private void addAttribute(String name, String value, Boolean first) {
+		if(first) {
+			builder.append(name + "=\"" + value + "\"");
+        }
+        else{
+            builder.append(" " + name + "=\"" + value + "\"");
+        }
+
+	}
+
+	private void addChildren(ArrayList<Node> children, NodeType childrenType) {
+		if(children.size() > 0){
+        	String endtag = "";
+            switch (childrenType){
+                case TRANSPONDER -> { builder.append("<transponders>"); endtag = "</transponders>";}
+                case SATTELITE -> { builder.append("<satellites>"); endtag = "</satellites>"; }
+                case CHANNEL -> { builder.append("<channels>"); endtag = "</channels>"; }
+            }
+            for (int i = 0; i < children.size(); i++) {
+                Node child = children.get(i);
+                child.accept(this);
+            }
+            builder.append(endtag);
+        }
+
+	}
 
     /**
      * Escape forbidden characters for xml format
