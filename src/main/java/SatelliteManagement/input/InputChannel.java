@@ -9,6 +9,11 @@ public class InputChannel {
     public String sid;
     public String name;
 
+    /**
+     * Constructor to map channel from json to java object 
+     * @param sid
+     * @param name
+     */
     public InputChannel(String sid, String name) {
         this.sid = sid;
         this.name = name;

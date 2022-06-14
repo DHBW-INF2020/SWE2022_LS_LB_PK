@@ -15,16 +15,16 @@ Von: Lea Soffel, Pascal Kraft und Lukas Benner
 ### Ausführen
 1. Ausführen der jar mit:
     ```bash
-   java -jar .\target\SatelliteManagement-1.0.jar -a ch-sat -f json -o output.json input.json
+   java -jar .\target\SatelliteManagement-1.0.jar -a ch-sat -f json -o output.json -i input.json
     ```
     -a/--aggregate -> Wählen zwischen ch-sat und sat-trans
     -f/--format -> Wählen zwischen json und xml
     -o/--output -> Wählen in welcher Datei der Output gespeichert werden soll (Dateiendung muss passen!)
-    letztes Argument -> Eingabedatei
+    -i/--input -> Pfad zur Eingabedatei
 
 2. Ausführen mit Maven:
    ```bash
-   mvn exec:java -D exec.args="-a ch-sat -f xml -o output.xml input.json"
+   mvn exec:java -D exec.args="-a ch-sat -f xml -o output.xml -i input.json"
    ```
    
 ## Generieren der Dokumentation

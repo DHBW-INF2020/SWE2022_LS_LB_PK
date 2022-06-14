@@ -15,6 +15,15 @@ public class InputTransponder {
     public String sym;
     public ArrayList<InputChannel> channels;
 
+    /**
+     * Constructor to map transponder from json to java object
+     * @param sat
+     * @param orbital
+     * @param pol
+     * @param freq
+     * @param sym
+     * @param channels
+     */
     public InputTransponder(String sat, String orbital, String pol, String freq, String sym, ArrayList<InputChannel> channels) {
         this.sat = sat;
         this.orbital = orbital;

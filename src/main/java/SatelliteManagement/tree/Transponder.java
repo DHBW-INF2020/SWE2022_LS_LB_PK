@@ -3,7 +3,7 @@ package SatelliteManagement.tree;
 import SatelliteManagement.visitor.iVisitor;
 
 /**
- * 
+ * Class to represent a Transponder in tree
  * @author Lea
  *
  */
@@ -38,6 +38,7 @@ public class Transponder extends Node {
 	}
 
 	/**
+	 * Getter for polarisation of Transponder
 	 * @return the _polarisation
 	 */
 	public String getPolarisation() {
@@ -46,6 +47,7 @@ public class Transponder extends Node {
 
 
 	/**
+	 * Getter for frequency of Transponder
 	 * @return the _frequency
 	 */
 	public String getFrequency() {
@@ -54,6 +56,7 @@ public class Transponder extends Node {
 
 
 	/**
+	 * Getter for symmetry of Transponder
 	 * @return the _symmetry
 	 */
 	public String getSymmetry() {
