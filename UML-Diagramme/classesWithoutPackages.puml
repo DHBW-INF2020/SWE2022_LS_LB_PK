@@ -15,8 +15,8 @@ class SatellitesOverTransponders_Visitor
 class ChannelsOverSatellites_Visitor
 
 iVisitor <|-- BaseVisitor
-BaseVisitor <|.. SatellitesOverTransponders_Visitor
-BaseVisitor <|.. ChannelsOverSatellites_Visitor
+BaseVisitor <|-- SatellitesOverTransponders_Visitor
+BaseVisitor <|-- ChannelsOverSatellites_Visitor
 
 enum Aggregate {
     CHANNEL_SAT
@@ -40,12 +40,12 @@ iVisitor <|-- iOutputVisitor
 class JsonOutputVisitor{
 - String normalizeJson(String input)
 }
-iOutputVisitor <|.. JsonOutputVisitor
+iOutputVisitor <|-- JsonOutputVisitor
 
 class XmlOutputVisitor{
 - String normalizeXML(String input)
 }
-iOutputVisitor <|.. XmlOutputVisitor
+iOutputVisitor <|-- XmlOutputVisitor
 
 enum Format{
 XML,

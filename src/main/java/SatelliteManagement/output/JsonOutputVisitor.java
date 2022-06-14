@@ -17,14 +17,19 @@ import java.util.ArrayList;
 public class JsonOutputVisitor implements iOutputVisitor {
 
     private final StringBuilder builder = new StringBuilder();
+    private final FormatDictionary dictionary;
+
+    public JsonOutputVisitor(FormatDictionary dictionary) {
+        this.dictionary = dictionary;
+    }
 
     @Override
     public Node visitTransponder(Transponder ctx) {
         builder.append("{");
-        addAttribute("pol", ctx.getPolarisation(), true);
-        addAttribute("freq", String.valueOf(ctx.getFrequency()), false);
-        addAttribute("sym", ctx.getSymmetry(), false);
-        addChildren(ctx.getChildren(), ctx.getChildrenType());
+        builder.append(dictionary.getFirstAttribute("pol", ctx.getPolarisation(), "json"));
+        builder.append(dictionary.getAttribute("freq", ctx.getFrequency(), "json"));
+        builder.append(dictionary.getAttribute("sym", ctx.getSymmetry(), "json"));
+        addChildren(ctx.getChildren());
         builder.append("}");
         return null;
     }
@@ -32,9 +37,9 @@ public class JsonOutputVisitor implements iOutputVisitor {
     @Override
     public Node visitSatellite(Satellite ctx) {
         builder.append("{");
-        addAttribute("sat", ctx.getName(), true);
-        addAttribute("orbital", ctx.getOrbital(), false);
-        addChildren(ctx.getChildren(), ctx.getChildrenType());
+        builder.append(dictionary.getFirstAttribute("sat", ctx.getName(), "json"));
+        builder.append(dictionary.getAttribute("orbital", ctx.getOrbital(), "json"));
+        addChildren(ctx.getChildren());
         builder.append("}");
 
         return null;
@@ -43,8 +48,9 @@ public class JsonOutputVisitor implements iOutputVisitor {
     @Override
     public Node visitChannel(Channel ctx) {
         builder.append("{");
-        addAttribute("channel", normalizeJSON(ctx.getName()), true);
-        addChildren(ctx.getChildren(), ctx.getChildrenType());
+        var name = dictionary.normalizeFormat(ctx.getName(), "json");
+        builder.append(dictionary.getFirstAttribute("name", name, "json"));
+        addChildren(ctx.getChildren());
         builder.append("}");
 
         return null;
@@ -65,34 +71,16 @@ public class JsonOutputVisitor implements iOutputVisitor {
         return null;
     }
 
-
-    @Override
-	public  void addAttribute(String name, String value, Boolean first){
-        if(first) {
-            builder.append("\"" + name + "\": \"" + value + "\"");
-        }
-        else{
-            builder.append(",\"" + name + "\": \"" + value + "\"");
-        }
-    }
-
-
-	@Override
-	public void addChildren(ArrayList<Node> children, NodeType childrenType) {
+	public void addChildren(ArrayList<Node> children) {
 		if(children.size() > 0){
             builder.append(",");
-            switch (childrenType){
-                case TRANSPONDER -> builder.append("\"transponders\":");
-                case SATTELITE -> builder.append("\"satellites\":");
-                case CHANNEL -> builder.append("\"channels\":");
-            }
-            builder.append("[");
+            builder.append(dictionary.getArrayStartTag("json", children.get(0).getClass()));
             for (int i = 0; i < children.size(); i++) {
                 Node child = children.get(i);
                 child.accept(this);
                 if(i < children.size()-1) builder.append(",");
             }
-            builder.append("]");
+            builder.append(dictionary.getArrayEndTag("json", children.get(0).getClass()));
         }
 	}
 
@@ -102,16 +90,4 @@ public class JsonOutputVisitor implements iOutputVisitor {
         JsonElement je = JsonParser.parseString(builder.toString());
         return gson.toJson(je);
     }
-
-    /**
-     * Escape forbidden characters for json format
-     * @param input
-     * @return
-     */
-    private String normalizeJSON(String input){
-        return input.replaceAll("\"", "\\\\\"")
-                .replaceAll("\t", "\\t")
-                .replaceAll("\b", "\\\\\b");
-    }
-
 }

@@ -6,7 +6,6 @@ import java.util.ArrayList;
 
 import SatelliteManagement.tree.Channel;
 import SatelliteManagement.tree.Node;
-import SatelliteManagement.tree.NodeType;
 import SatelliteManagement.tree.Root;
 import SatelliteManagement.tree.Satellite;
 import SatelliteManagement.tree.Transponder;
@@ -25,14 +24,20 @@ public class XmlOutputVisitor implements iOutputVisitor {
 
     private final StringBuilder builder = new StringBuilder();
 
+    private final FormatDictionary dictionary;
+
+    public XmlOutputVisitor(FormatDictionary dictionary) {
+        this.dictionary = dictionary;
+    }
+
     @Override
     public Node visitTransponder(Transponder ctx) {
         builder.append("<transponder ");
-        addAttribute("pol", ctx.getPolarisation(), true);
-        addAttribute("freq", String.valueOf(ctx.getFrequency()), false);
-        addAttribute("sym", ctx.getSymmetry(), false);
+        builder.append(dictionary.getFirstAttribute("pol", ctx.getPolarisation(), "xml"));
+        builder.append(dictionary.getAttribute("freq", ctx.getFrequency(), "xml"));
+        builder.append(dictionary.getAttribute("sym", ctx.getSymmetry(), "xml"));
         builder.append(">");
-        addChildren(ctx.getChildren(), ctx.getChildrenType());
+        addChildren(ctx.getChildren());
         builder.append("</transponder>");
         return null;
     }
@@ -40,10 +45,10 @@ public class XmlOutputVisitor implements iOutputVisitor {
     @Override
     public Node visitSatellite(Satellite ctx) {
         builder.append("<sat ");
-        addAttribute("sat", ctx.getName(), true);
-        addAttribute("orbital", ctx.getOrbital(), false);
+        builder.append(dictionary.getFirstAttribute("sat", ctx.getName(), "xml"));
+        builder.append(dictionary.getAttribute("orbital", ctx.getOrbital(), "xml"));
         builder.append(">");
-        addChildren(ctx.getChildren(), ctx.getChildrenType());
+        addChildren(ctx.getChildren());
         builder.append("</sat>");
 
         return null;
@@ -52,9 +57,10 @@ public class XmlOutputVisitor implements iOutputVisitor {
     @Override
     public Node visitChannel(Channel ctx) {
         builder.append("<channel ");
-        addAttribute("name", normalizeXML(ctx.getName()), true);
+        var name = dictionary.normalizeFormat(ctx.getName(), "xml");
+        builder.append(dictionary.getFirstAttribute("name", name, "xml"));
         builder.append(">");
-        addChildren(ctx.getChildren(), ctx.getChildrenType());
+        addChildren(ctx.getChildren());
         builder.append("</channel>");
 
         return null;
@@ -64,40 +70,20 @@ public class XmlOutputVisitor implements iOutputVisitor {
     @Override
     public Node visitRoot(Root ctx) {
         builder.append("<?xml version=\"1.0\" encoding=\"utf-8\"?>");
-        addChildren(ctx.getChildren(), ctx.getChildrenType());
+        addChildren(ctx.getChildren());
         
         return null;
     }
 
-
-
-	@Override
-	public void addAttribute(String name, String value, Boolean first) {
-		if(first) {
-			builder.append(name + "=\"" + value + "\"");
-        }
-        else{
-            builder.append(" " + name + "=\"" + value + "\"");
-        }
-		
-	}
-
-	@Override
-	public void addChildren(ArrayList<Node> children, NodeType childrenType) {
+	public void addChildren(ArrayList<Node> children) {
 		if(children.size() > 0){
-        	String endtag = "";
-            switch (childrenType){
-                case TRANSPONDER -> { builder.append("<transponders>"); endtag = "</transponders>";}
-                case SATTELITE -> { builder.append("<satellites>"); endtag = "</satellites>"; }
-                case CHANNEL -> { builder.append("<channels>"); endtag = "</channels>"; }
-            }
+            builder.append(dictionary.getArrayStartTag("xml", children.get(0).getClass()));
             for (int i = 0; i < children.size(); i++) {
                 Node child = children.get(i);
                 child.accept(this);
             }
-            builder.append(endtag);
+            builder.append(dictionary.getArrayEndTag("xml", children.get(0).getClass()));
         }
-		
 	}
 
     @Override
@@ -116,18 +102,5 @@ public class XmlOutputVisitor implements iOutputVisitor {
         catch (TransformerException e){
             throw new RuntimeException(e);
         }
-    }
-
-    /**
-     * Escape forbidden characters for xml format
-     * @param input
-     * @return input with the correct notation of the forbidden characters
-     */
-    private String normalizeXML(String input){
-        return input.replaceAll("&", "&amp;")
-                .replaceAll("\"", "&quot;")
-                .replaceAll("'", "&apos;")
-                .replaceAll("<", "&lt;")
-                .replaceAll(">", "&gt;");
     }
 }
