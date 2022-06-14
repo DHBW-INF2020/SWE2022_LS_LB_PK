@@ -31,6 +31,7 @@ public class InputHandlerTest {
         channels.add(new InputChannel("608", "Discovery Science SD"));
         inputTransponders.add(new InputTransponder("BulgariaSat-1", "1.9° E", "H", "12072", "30000", channels));
         inputTransponders.add(new InputTransponder("BulgariaSat-1", "1.9° E", "V", "13072", "40000", channels));
+
     }
 
     /**
@@ -40,18 +41,7 @@ public class InputHandlerTest {
     public void getSatellitesFromInputFormatTest1() {
 
     	// build the expected Satellite
-        ArrayList<Node> expected = new ArrayList<>();
-        Satellite sat = new Satellite("BulgariaSat-1", "1.9° E");
-        Transponder transponder1 = new Transponder("H", "12072", "30000");
-        transponder1.addChild(new Channel("Discovery Science HD", 607));
-        transponder1.addChild(new Channel("Discovery Science SD", 608));
-
-        Transponder transponder2 = new Transponder("V", "13072", "40000");
-        transponder2.addChild(new Channel("Discovery Science HD", 607));
-        transponder2.addChild(new Channel("Discovery Science SD", 608));
-        sat.addChild(transponder1);
-        sat.addChild(transponder2);
-        expected.add(sat);
+        ArrayList<Node> expected = createExpected();
 
         // generate Satellite by calling the tested method with test input 
         var actual = InputHandler.getSatellitesFromInputFormat(inputTransponders);
@@ -65,18 +55,7 @@ public class InputHandlerTest {
     @Test
     public void getSatellitesFromInputFormatTest2() {
 
-        ArrayList<Node> expected = new ArrayList<>();
-        Satellite sat = new Satellite("BulgariaSat-1", "1.9° E");
-        Transponder transponder1 = new Transponder("H", "12072", "30000");
-        transponder1.addChild(new Channel("Discovery Science HD", 607));
-        transponder1.addChild(new Channel("Discovery Science SD", 608));
-
-        Transponder transponder2 = new Transponder("V", "13072", "40000");
-        transponder2.addChild(new Channel("Discovery Science HD", 607));
-        transponder2.addChild(new Channel("Discovery Science SD", 608));
-        sat.addChild(transponder1);
-        sat.addChild(transponder2);
-        expected.add(sat);
+        ArrayList<Node> expected = createExpected();
 
         ArrayList<InputChannel> channels = new ArrayList<>();
         channels.add(new InputChannel("608", "Discovery Science 4K"));
@@ -101,5 +80,23 @@ public class InputHandlerTest {
         catch (RuntimeException e){
         }
     }
+
+
+    private ArrayList<Node> createExpected(){
+        ArrayList<Node> expected = new ArrayList<>();
+        Satellite sat = new Satellite("BulgariaSat-1", "1.9° E");
+        Transponder transponder1 = new Transponder("H", "12072", "30000");
+        transponder1.addChild(new Channel("Discovery Science HD", 607));
+        transponder1.addChild(new Channel("Discovery Science SD", 608));
+
+        Transponder transponder2 = new Transponder("V", "13072", "40000");
+        transponder2.addChild(new Channel("Discovery Science HD", 607));
+        transponder2.addChild(new Channel("Discovery Science SD", 608));
+        sat.addChild(transponder1);
+        sat.addChild(transponder2);
+        expected.add(sat);
+        return expected;
+    }
+
 
 }
