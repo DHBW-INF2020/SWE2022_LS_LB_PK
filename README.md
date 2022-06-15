@@ -1,3 +1,5 @@
+[![Java CI with Maven](https://github.com/DHBW-INF2020/SWE2022_LS_LB_PK/actions/workflows/maven.yml/badge.svg?branch=main)](https://github.com/DHBW-INF2020/SWE2022_LS_LB_PK/actions/workflows/maven.yml)
+
 # SWE Satelliten Management Aufgabe
 
 Von: Lea Soffel, Pascal Kraft und Lukas Benner
