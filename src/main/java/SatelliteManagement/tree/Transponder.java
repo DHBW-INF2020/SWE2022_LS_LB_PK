@@ -69,8 +69,8 @@ public class Transponder extends Node {
 	}
 
 	@Override
-	public NodeType getType() {
-		return NodeType.TRANSPONDER;
+	public String getCollectionName() {
+		return "transponders";
 	}
 
 

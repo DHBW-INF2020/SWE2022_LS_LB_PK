@@ -1,12 +1,5 @@
-/**
- * 
- */
 package SatelliteManagement.output;
 
-import java.util.ArrayList;
-
-import SatelliteManagement.tree.Node;
-import SatelliteManagement.tree.NodeType;
 import SatelliteManagement.visitor.iVisitor;
 
 /**
@@ -21,5 +14,4 @@ public interface iOutputVisitor extends iVisitor {
 	 * @return A string with the parsed data
 	 */
 	String getParsedData();
-
 }

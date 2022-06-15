@@ -19,16 +19,16 @@ Von: Lea Soffel, Pascal Kraft und Lukas Benner
     ```bash
    java -jar .\target\SatelliteManagement-1.0.jar -a ch-sat -f json -o output.json -i input.json
     ```
-    -a/--aggregate -> Wählen zwischen ch-sat und sat-trans
-    -f/--format -> Wählen zwischen json und xml
-    -o/--output -> Wählen in welcher Datei der Output gespeichert werden soll (Dateiendung muss passen!)
-    -i/--input -> Pfad zur Eingabedatei
 
 2. Ausführen mit Maven:
    ```bash
    mvn exec:java -D exec.args="-a ch-sat -f xml -o output.xml -i input.json"
    ```
-   
+3. Parameter:
+    - `-a/--aggregate` &#8594; Wählen zwischen ch-sat und sat-trans
+    - `-f/--format` &#8594; Wählen zwischen json und xml
+    - `-o/--output` &#8594; Wählen in welcher Datei der Output gespeichert werden soll (Dateiendung muss passen!)
+    - `-i/--input` &#8594; Pfad zur Eingabedatei
 ## Generieren der Dokumentation
 Dokumentation der App:
 ```bash

@@ -45,8 +45,8 @@ public class XmlOutputVisitor implements iOutputVisitor {
     @Override
     public Node visitSatellite(Satellite ctx) {
         builder.append("<sat ");
-        builder.append(dictionary.getFirstAttribute("sat", ctx.getName(), "xml"));
-        builder.append(dictionary.getAttribute("orbital", ctx.getOrbital(), "xml"));
+        addAttribute("name", ctx.getName(), true);
+        addAttribute("orbital", ctx.getOrbital(), false);
         builder.append(">");
         addChildren(ctx.getChildren());
         builder.append("</sat>");
@@ -66,25 +66,12 @@ public class XmlOutputVisitor implements iOutputVisitor {
         return null;
     }
 
-
     @Override
     public Node visitRoot(Root ctx) {
         builder.append("<?xml version=\"1.0\" encoding=\"utf-8\"?>");
         addChildren(ctx.getChildren());
-        
         return null;
     }
-
-	public void addChildren(ArrayList<Node> children) {
-		if(children.size() > 0){
-            builder.append(dictionary.getArrayStartTag("xml", children.get(0).getClass()));
-            for (int i = 0; i < children.size(); i++) {
-                Node child = children.get(i);
-                child.accept(this);
-            }
-            builder.append(dictionary.getArrayEndTag("xml", children.get(0).getClass()));
-        }
-	}
 
     @Override
     public String getParsedData() {
@@ -102,5 +89,39 @@ public class XmlOutputVisitor implements iOutputVisitor {
         catch (TransformerException e){
             throw new RuntimeException(e);
         }
+    }
+
+	private void addAttribute(String name, String value, Boolean first) {
+		if(first) {
+			builder.append(name).append("=\"").append(value).append("\"");
+        }
+        else{
+            builder.append(" ").append(name).append("=\"").append(value).append("\"");
+        }
+
+	}
+
+	private void addChildren(ArrayList<Node> children) {
+		if(children.size() > 0){
+            builder.append("<").append(children.get(0).getCollectionName()).append(">");
+            for (int i = 0; i < children.size(); i++) {
+                Node child = children.get(i);
+                child.accept(this);
+            }
+            builder.append("</").append(children.get(0).getCollectionName()).append(">");
+        }
+	}
+
+    /**
+     * Escape forbidden characters for xml format
+     * @param input
+     * @return input with the correct notation of the forbidden characters
+     */
+    private String normalizeXML(String input){
+        return input.replaceAll("&", "&amp;")
+                .replaceAll("\"", "&quot;")
+                .replaceAll("'", "&apos;")
+                .replaceAll("<", "&lt;")
+                .replaceAll(">", "&gt;");
     }
 }

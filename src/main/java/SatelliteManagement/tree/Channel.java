@@ -42,8 +42,8 @@ public class Channel extends Node{
     }
 
     @Override
-    public NodeType getType() {
-        return NodeType.CHANNEL;
+    public String getCollectionName() {
+        return "channels";
     }
 
 }
