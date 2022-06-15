@@ -16,11 +16,10 @@ public class OutputVisitorFactory {
      * @exception RuntimeException if no matching format is found
      */
     public static iOutputVisitor produceVisitor(Format format){
-        FormatDictionary dictionary =  new FormatDictionary();
         iOutputVisitor visitor = null;
         switch (format){
-            case XML -> visitor = new XmlOutputVisitor(dictionary);
-            case JSON -> visitor = new JsonOutputVisitor(dictionary);
+            case XML -> visitor = new XmlOutputVisitor();
+            case JSON -> visitor = new JsonOutputVisitor();
             default -> throw new RuntimeException("No Format specified");
         }
         return visitor;

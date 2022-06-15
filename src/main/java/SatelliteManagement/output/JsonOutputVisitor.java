@@ -17,11 +17,6 @@ import java.util.ArrayList;
 public class JsonOutputVisitor implements iOutputVisitor {
 
     private final StringBuilder builder = new StringBuilder();
-    private final FormatDictionary dictionary;
-
-    public JsonOutputVisitor(FormatDictionary dictionary) {
-        this.dictionary = dictionary;
-    }
 
     @Override
     public Node visitTransponder(Transponder ctx) {
@@ -96,7 +91,7 @@ public class JsonOutputVisitor implements iOutputVisitor {
                 child.accept(this);
                 if(i < children.size()-1) builder.append(",");
             }
-            builder.append(dictionary.getArrayEndTag("json", children.get(0).getClass()));
+            builder.append("]");
         }
 	}
 

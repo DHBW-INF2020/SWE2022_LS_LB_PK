@@ -24,18 +24,12 @@ public class XmlOutputVisitor implements iOutputVisitor {
 
     private final StringBuilder builder = new StringBuilder();
 
-    private final FormatDictionary dictionary;
-
-    public XmlOutputVisitor(FormatDictionary dictionary) {
-        this.dictionary = dictionary;
-    }
-
     @Override
     public Node visitTransponder(Transponder ctx) {
         builder.append("<transponder ");
-        builder.append(dictionary.getFirstAttribute("pol", ctx.getPolarisation(), "xml"));
-        builder.append(dictionary.getAttribute("freq", ctx.getFrequency(), "xml"));
-        builder.append(dictionary.getAttribute("sym", ctx.getSymmetry(), "xml"));
+        addAttribute("pol", ctx.getPolarisation(), true);
+        addAttribute("freq", String.valueOf(ctx.getFrequency()), false);
+        addAttribute("sym", ctx.getSymmetry(), false);
         builder.append(">");
         addChildren(ctx.getChildren());
         builder.append("</transponder>");
@@ -57,8 +51,7 @@ public class XmlOutputVisitor implements iOutputVisitor {
     @Override
     public Node visitChannel(Channel ctx) {
         builder.append("<channel ");
-        var name = dictionary.normalizeFormat(ctx.getName(), "xml");
-        builder.append(dictionary.getFirstAttribute("name", name, "xml"));
+        addAttribute("name", normalizeXML(ctx.getName()), true);
         builder.append(">");
         addChildren(ctx.getChildren());
         builder.append("</channel>");

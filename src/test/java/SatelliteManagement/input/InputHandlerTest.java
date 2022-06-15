@@ -29,7 +29,7 @@ public class InputHandlerTest {
     	ArrayList<InputTransponder> emptyInputTransponders = new ArrayList<>();
 
     	// build the expected Satellite-Array
-        ArrayList<Node> expectedEmptySatellite = new ArrayList<>(); //empty array list
+        ArrayList<Node> expected = new ArrayList<>(); //empty array list
         
         // generate Satellite-Array by calling the tested method with test input 
         var actual = InputHandler.getSatellitesFromInputFormat(emptyInputTransponders);
@@ -98,12 +98,12 @@ public class InputHandlerTest {
         // add one Channel as child
         transponder1.addChild(new Channel("Discovery Science HD", 607));
         // add Transponder1 to Satellite1
-        sat.addChild(transponder1);
+        sat1.addChild(transponder1);
         
         // create second satellite
-        Satellite sat2 = new Satellite("BulgariaSat-1", "1.9° E");
+        Satellite sat2 = new Satellite("BulgariaSat-2", "1.9° E");
         // create one Transponder
-        Transponder transponder2 = new Transponder("H", "12072", "30000");
+        Transponder transponder2 = new Transponder("V", "12072", "30000");
         // add one Channel as child
         transponder2.addChild(new Channel("Discovery Science HD", 607));
         // add Transponder2 to Satellite2
