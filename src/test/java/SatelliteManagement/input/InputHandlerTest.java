@@ -124,20 +124,17 @@ public class InputHandlerTest {
      */
     @Test
     public void testcase4() {
-    	
-    	//TODOOOO
-    	
-/*    	// build the inputTransponder-Array
+
+    	// build the inputTransponder-Array
     	ArrayList<InputTransponder> nullInputTransponders = null;
 
-    	// build the expected Satellite-Array
-        ArrayList<Node> expected = new ArrayList<>(); //empty array list
-        
-        // generate Satellite-Array by calling the tested method with test input 
-        var actual = InputHandler.getSatellitesFromInputFormat(emptyInputTransponders);
-        
-        // check if expected Satellite equals actual generated Satellite (both empty)
-        assertThat(actual).usingRecursiveComparison().isEqualTo(expected); */
+        try{
+
+            InputHandler.getSatellitesFromInputFormat(nullInputTransponders);
+            fail("Did not throw an Exception");
+        }
+        catch (RuntimeException e){
+        }
     }
 
 
