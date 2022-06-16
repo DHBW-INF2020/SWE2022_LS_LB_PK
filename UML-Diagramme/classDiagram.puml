@@ -31,8 +31,6 @@ Aggregate <-- AggregateVisitorFactory
 iVisitor <-- AggregateVisitorFactory
 
 interface iOutputVisitor{
-    + void addAttribute(String name, String value, Boolean first)
-    + void addChildren(ArrayList<Node> children, NodeType childrenType)
     + String getParsedData()
 }
 iVisitor <|-- iOutputVisitor
@@ -61,17 +59,14 @@ Format <-- OutputVisitorFactory
 
 abstract class Node{
 - ArrayList<Node> _children
-- NodeType _childrenType
 + {abstract} Node accept(iVisitor visitor)
-+ NodeType getChildrenType()
 + void setChildren(ArrayList<Node> children)
 + void clearChildren()
 + void addChild()
-+ {abstract} NodeType getType()
++ {abstract} String getCollectionName()
 }
 
 iVisitor <-- Node
-NodeType <-- Node
 Node o-- Node
 
 class Channel{
@@ -109,13 +104,6 @@ class Root{
 
 Node <|-- Root
 
-
-enum NodeType{
-SATELLITE
-TRANSPONDER
-CHANNEL
-ROOT
-}
 
 class InputChannel{
 + String sid
