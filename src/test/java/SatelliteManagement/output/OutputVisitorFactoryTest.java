@@ -37,7 +37,7 @@ public class OutputVisitorFactoryTest {
     	iOutputVisitor actualVisitor = OutputVisitorFactory.produceVisitor(inputFormat);
     	
     	// check if expected Visitor equals actual Visitor (both should be XmlOutputVisitor())
-        assertThat(actualVisitor).usingRecursiveComparison().isEqualTo(expectedVisitor);
+        assertThat(actualVisitor).usingRecursiveComparison().ignoringFieldsOfTypes(StringBuilder.class).isEqualTo(expectedVisitor);
     }
     
     /**
@@ -55,7 +55,7 @@ public class OutputVisitorFactoryTest {
     	iOutputVisitor actualVisitor = OutputVisitorFactory.produceVisitor(inputFormat);
     	
     	// check if expected Visitor equals actual Visitor (both should be JsonOutputVisitor())
-        assertThat(actualVisitor).usingRecursiveComparison().isEqualTo(expectedVisitor);
+        assertThat(actualVisitor).usingRecursiveComparison().ignoringFieldsOfTypes(StringBuilder.class).isEqualTo(expectedVisitor);
     }
 
     
