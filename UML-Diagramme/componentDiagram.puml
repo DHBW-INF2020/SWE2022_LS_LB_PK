@@ -1,36 +1,55 @@
 @startuml
 
 artifact JsonInputFile
-
+artifact UserInput
+artifact OutputFile
 
 component SatelliteManagement as app{
 
     port "inputFile" as p_in
+    port "CLI Args" as p_args
+    port "outputFile" as p_out
 
-    component AggregateVisitor
+    component SatOverTransVisitor
     component Main
     component OutputVisitor
     component JsonParser
+    component CLIArgsParser
 
     interface iVisitor
     interface iOutputVisitor
     interface iFormarParser
 
-    iVisitor -left- AggregateVisitor
+    iVisitor -left- SatOverTransVisitor
     Main -left-> iVisitor
     Main -right->iOutputVisitor
     iOutputVisitor -right- OutputVisitor
-    Main -up->iFormarParser
-    iFormarParser -left- JsonParser
+    Main -up-->iFormarParser
+    JsonParser -right- iFormarParser
     () " " as i_in
     i_in - JsonParser
     p_in -down-> i_in
+    Main -up-> CLIArgsParser
+    () " " as i_args
+    i_args -down- CLIArgsParser
+    () " " as i_out
+    Main -up- i_out
 }
 
 
 () " " as io_in
 io_in -down- p_in
 JsonInputFile -right-> io_in
+
+() " " as io_args
+io_args -down- p_args
+UserInput -right-> io_args
+p_args -down-> i_args
+
+() " " as io_out
+io_out -down- p_out
+OutputFile -right-> io_out
+p_out -down-> i_out
 
 
 
