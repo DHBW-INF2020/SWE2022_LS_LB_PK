@@ -21,6 +21,10 @@ if (CLI Args are valid) then (true)
   else (XML)
     :produce XmlOutputVisitor;
   endif
+  :Parse output tree to
+  output string;
+  :Write output string
+  to file;
 else (false)
     :Print error message;
     end
