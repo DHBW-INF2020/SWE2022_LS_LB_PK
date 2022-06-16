@@ -1,8 +1,9 @@
-package test.java.SatelliteManagement.aggregates;
+package SatelliteManagement.aggregates;
 
 import org.junit.jupiter.api.Test;
 import SatelliteManagement.tree.*;
 import SatelliteManagement.aggregates.*;
+import SatelliteManagement.visitor.iVisitor;
 import org.junit.jupiter.api.TestInstance;
 
 import static org.assertj.core.api.Assertions.assertThat;
