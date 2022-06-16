@@ -96,9 +96,9 @@ public class JsonOutputVisitor implements iOutputVisitor {
 	}
 
     /**
-     * Escape forbidden characters for json format
-     * @param input
-     * @return
+     * Escape forbidden characters for JSON format
+     * @param input is a string that holds unescaped characters
+     * @return A string where the special characters are escaped
      */
     private String normalizeJSON(String input){
         return input.replaceAll("\"", "\\\\\"")
