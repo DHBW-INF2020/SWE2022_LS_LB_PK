@@ -19,11 +19,15 @@ import java.util.ArrayList;
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class InputHandlerTest {
     
+/**
+ * Testcases for method getSatellitesFromInputFormat
+ */
+	
     /**
      * Testcase 1: emptyInputTransponders = empty
      */
     @Test
-    public void testcase1() {
+    public void testcase1_getSatellitesFromInputFormat() {
     	
     	// build the inputTransponder-Array
     	ArrayList<InputTransponder> emptyInputTransponders = new ArrayList<>();
@@ -42,7 +46,7 @@ public class InputHandlerTest {
      * Testcase 2: oneInputTransponders = [ Transponder ]
      */
     @Test
-    public void testcase2() {
+    public void testcase2_getSatellitesFromInputFormat() {
     	
     	// build the inputTransponder-Array
     	ArrayList<InputTransponder> oneInputTransponders = new ArrayList<>();
@@ -77,7 +81,7 @@ public class InputHandlerTest {
      * Testcase 2: twoInputTransponders = [ Transponder1, Transponder2 ] (test for multiple)
      */
     @Test
-    public void testcase3() {
+    public void testcase3_getSatellitesFromInputFormat() {
     	
     	// build the inputTransponder-Array
     	ArrayList<InputTransponder> twoInputTransponders = new ArrayList<>();
@@ -123,7 +127,7 @@ public class InputHandlerTest {
      * Testcase 4: nullInputTransponders = null
      */
     @Test
-    public void testcase4() {
+    public void testcase4_getSatellitesFromInputFormat() {
     	
     	//TODOOOO
     	
@@ -140,14 +144,66 @@ public class InputHandlerTest {
         assertThat(actual).usingRecursiveComparison().isEqualTo(expected); */
     }
 
+    
+/**
+ * Testcases for method parseJsonToTreeThrowExceptionTest
+ */
+    
 
+    /**
+     * Testcase 1: emptyFilename = ""
+     */
     @Test
-    void parseJsonToTreeThrowExceptionTest(){
+    void testcase1_parseJsonToTreeThrowExceptionTest(){
         try{
-            InputHandler.parseJsonToTree("doesNotExist");
+            InputHandler.parseJsonToTree("");
             fail("Did not throw an IO Exception");
         }
         catch (RuntimeException e){
+        	// irgendwas, dass Test gut verlief
+        }
+    }
+    
+    /**
+     * Testcase 2: correctFilename = ""
+     */
+    @Test
+    void testcase2_parseJsonToTreeThrowExceptionTest(){
+        try{
+            InputHandler.parseJsonToTree("input.json");
+        }
+        catch (RuntimeException e){
+        	fail("Did throw an Exception, but should not");
+        }
+    }
+    
+    
+    /**
+     * Testcase 3: nullFilename = null
+     */
+    @Test
+    void testcase3_parseJsonToTreeThrowExceptionTest(){
+        try{
+            InputHandler.parseJsonToTree(null);
+            fail("Did not throw an IO Exception");
+        }
+        catch (RuntimeException e){
+        	// irgendwas, dass Test gut verlief
+        }
+    }
+    
+    
+    /**
+     * Testcase 4: notExistFilename = "input.xml" 
+     */
+    @Test
+    void testcase4_parseJsonToTreeThrowExceptionTest(){
+        try{
+            InputHandler.parseJsonToTree("input.xml");
+            fail("Did not throw an IO Exception");
+        }
+        catch (RuntimeException e){
+        	// irgendwas, dass Test gut verlief
         }
     }
 
