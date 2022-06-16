@@ -24,4 +24,4 @@
 | T2     | format<sub>JSON</sub> | inputFormat = Format.JSON | expectedVistor =  JsonOutputVisitor() | actualVisitor |
 | T3     | format<sub>null</sub> | inputFormat = null | Exception | no Exception* |
 
-* Bei Fall T3, müsste im switch der default-Pfad gewählt werden, in dem eine Exception geworfen wird, im Test ist eine try/catch so drum rum gebaut, dass die Exception abgefangen wird und eine Exception geworfen wird, wenn in der try/catch keine Exception abgefangen werden kann.
+\* Bei Fall T3, müsste im switch der default-Pfad gewählt werden, in dem eine Exception geworfen wird, im Test ist eine try/catch so drum rum gebaut, dass die Exception abgefangen wird und eine Exception geworfen wird, wenn in der try/catch keine Exception abgefangen werden kann.

@@ -1,9 +1,8 @@
-package SatelliteManagement.aggregates;
+package SatelliteManagement.output;
 
 import org.junit.jupiter.api.Test;
 import SatelliteManagement.tree.*;
-import SatelliteManagement.aggregates.*;
-import SatelliteManagement.visitor.iVisitor;
+import SatelliteManagement.output.*;
 import org.junit.jupiter.api.TestInstance;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -12,66 +11,66 @@ import static org.assertj.core.api.Assertions.fail;
 import java.util.ArrayList;
 
 /**
- * Class to test AggregateVisitorFactory
+ * Class to test OutputVisitorFactory
  * @author Lea Soffel
  * @version 1.0
  */
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class AggregateVisitorFactoryTest {
+public class OutputVisitorFactoryTest {
     
 /**
  * Testcases for method produceVisitor
  */
 	
     /**
-     * Testcase 1: channelSatAggregate = Aggregate.CHANNEL_SAT 
+     * Testcase 1: xmlFormat = Format.XML (inputFormat)
      */
     @Test
     public void testcase1_produceVisitor() {
-    	// build inputAggregate
-    	Aggregate inputAggregate = Aggregate.CHANNEL_SAT;
+    	// build inputFormat
+    	Format inputFormat = Format.XML;
     	
     	// build expectedVisitor
-    	iVisitor expectedVisitor = new ChannelsOverSatellitesVisitor();
+    	iOutputVisitor expectedVisitor = new XmlOutputVisitor();
     	
     	// create actualVisitor by calling tested method
-    	iVisitor actualVisitor = AggregateVisitorFactory.produceVisitor(inputAggregate);
+    	iOutputVisitor actualVisitor = OutputVisitorFactory.produceVisitor(inputFormat);
     	
-    	// check if expected Visitor equals actual Visitor (both should be ChannelsOverSatellitesVisitor())
+    	// check if expected Visitor equals actual Visitor (both should be XmlOutputVisitor())
         assertThat(actualVisitor).usingRecursiveComparison().isEqualTo(expectedVisitor);
     }
     
     /**
-     * Testcase 2: satTransponderAggregate = Aggregate.SAT_TRANSPONDER
+     * Testcase 2: jsonFormat = Format.JSON (inputFormat)
      */
     @Test
     public void testcase2_produceVisitor() {
-    	// build inputAggregate
-    	Aggregate inputAggregate = Aggregate.SAT_TRANSPONDER;
+    	// build inputFormat
+    	Format inputFormat = Format.JSON;
     	
     	// build expectedVisitor
-    	iVisitor expectedVisitor = new SatellitesOverTranspondersVisitor();
+    	iOutputVisitor expectedVisitor = new JsonOutputVisitor();
     	
     	// create actualVisitor by calling tested method
-    	iVisitor actualVisitor = AggregateVisitorFactory.produceVisitor(inputAggregate);
+    	iOutputVisitor actualVisitor = OutputVisitorFactory.produceVisitor(inputFormat);
     	
-    	// check if expected Visitor equals actual Visitor (both should be SatellitesOverTranspondersVisitor())
+    	// check if expected Visitor equals actual Visitor (both should be JsonOutputVisitor())
         assertThat(actualVisitor).usingRecursiveComparison().isEqualTo(expectedVisitor);
     }
 
     
     /**
-     * Testcase 3: nullAggregate = null
+     * Testcase 3: nullFormat = null (inputFormat)
      */
     @Test
-    public void testcase4_getSatellitesFromInputFormat() {
+    public void testcase3_produceVisitor() {
 
-    	// build the inputAggregate
-    	Aggregate inputAggregate = null;
+    	// build the inputFormat
+    	Format inputFormat = null;
 
         try{
-
-        	AggregateVisitorFactory.produceVisitor(inputAggregate);
+        	
+        	OutputVisitorFactory.produceVisitor(inputFormat);
             fail("Did not throw an Exception");
         }
         catch (RuntimeException e){

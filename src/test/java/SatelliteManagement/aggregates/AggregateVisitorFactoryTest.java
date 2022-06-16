@@ -24,7 +24,7 @@ public class AggregateVisitorFactoryTest {
  */
 	
     /**
-     * Testcase 1: channelSatAggregate = Aggregate.CHANNEL_SAT 
+     * Testcase 1: channelSatAggregate = Aggregate.CHANNEL_SAT (inputAggregate)
      */
     @Test
     public void testcase1_produceVisitor() {
@@ -42,7 +42,7 @@ public class AggregateVisitorFactoryTest {
     }
     
     /**
-     * Testcase 2: satTransponderAggregate = Aggregate.SAT_TRANSPONDER
+     * Testcase 2: satTransponderAggregate = Aggregate.SAT_TRANSPONDER (inputAggregate)
      */
     @Test
     public void testcase2_produceVisitor() {
@@ -61,10 +61,10 @@ public class AggregateVisitorFactoryTest {
 
     
     /**
-     * Testcase 3: nullAggregate = null
+     * Testcase 3: nullAggregate = null (inputAggregate)
      */
     @Test
-    public void testcase4_getSatellitesFromInputFormat() {
+    public void testcase3_produceVisitor() {
 
     	// build the inputAggregate
     	Aggregate inputAggregate = null;

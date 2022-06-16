@@ -24,4 +24,4 @@
 | T2     | aggregate<sub>SAT_TRANSPONDER</sub>| inputAggregate = Aggregate.SAT_TRANSPONDER | expectedVistor =  SatellitesOverTranspondersVisitor() | actualVisitor |
 | T3     | aggregate<sub>null</sub>| inputAggregate = null | Exception | no Exception* |
 
-* Bei Fall T3, müsste im switch der default-Pfad gewählt werden, in dem eine Exception geworfen wird, im Test ist eine try/catch so drum rum gebaut, dass die Exception abgefangen wird und eine Exception geworfen wird, wenn in der try/catch keine Exception abgefangen werden kann.
+\* Bei Fall T3, müsste im switch der default-Pfad gewählt werden, in dem eine Exception geworfen wird, im Test ist eine try/catch so drum rum gebaut, dass die Exception abgefangen wird und eine Exception geworfen wird, wenn in der try/catch keine Exception abgefangen werden kann.
