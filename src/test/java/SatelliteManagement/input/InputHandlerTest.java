@@ -91,10 +91,10 @@ public class InputHandlerTest {
         // add first Transponder with one Channel
         twoInputTransponders.add(new InputTransponder("BulgariaSat-1", "1.9° E", "H", "12072", "30000", channels));
         // add second Transponder with one Channel
-        twoInputTransponders.add(new InputTransponder("BulgariaSat-2", "1.9° E", "V", "12072", "30000", channels));
+        twoInputTransponders.add(new InputTransponder("BulgariaSat-1", "1.9° E", "V", "12072", "30000", channels));
 
     	// build the expected Satellite-Array
-        ArrayList<Node> expectedTwoSatellites = new ArrayList<>();
+        ArrayList<Node> expectedOneSatelliteWithTwoTransponders = new ArrayList<>();
         // create first satellite
         Satellite sat1 = new Satellite("BulgariaSat-1", "1.9° E");
         // create one Transponder
@@ -103,24 +103,21 @@ public class InputHandlerTest {
         transponder1.addChild(new Channel("Discovery Science HD", 607));
         // add Transponder1 to Satellite1
         sat1.addChild(transponder1);
-        
-        // create second satellite
-        Satellite sat2 = new Satellite("BulgariaSat-2", "1.9° E");
-        // create one Transponder
+        // create second Transponder
         Transponder transponder2 = new Transponder("V", "12072", "30000");
         // add one Channel as child
         transponder2.addChild(new Channel("Discovery Science HD", 607));
-        // add Transponder2 to Satellite2
-        sat2.addChild(transponder2);
-        // add Satellite1 and Satellite2 to Satellite-Array
-        expectedTwoSatellites.add(sat1);
-        expectedTwoSatellites.add(sat2);
+        // add Transponder2 to Satellite1
+        sat1.addChild(transponder2);
+        
+        // add Satellite1 to Satellite-Array
+        expectedOneSatelliteWithTwoTransponders.add(sat1);
         
         // generate Satellite-Array by calling the tested method with test input 
         var actual = InputHandler.getSatellitesFromInputFormat(twoInputTransponders);
         
         // check if expected Satellite equals actual generated Satellite (both two satellites)
-        assertThat(actual).usingRecursiveComparison().isEqualTo(expectedTwoSatellites);
+        assertThat(actual).usingRecursiveComparison().isEqualTo(expectedOneSatelliteWithTwoTransponders);
     }
     
     /**

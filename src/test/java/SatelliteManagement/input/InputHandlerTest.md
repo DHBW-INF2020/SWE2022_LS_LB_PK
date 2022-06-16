@@ -23,10 +23,10 @@
 | ----     |    ----          | ----    | ---- | ---- |
 | T1     | inputTransponders<sub>empty</sub>| [ ] | expectedEmptySatellite | actual |
 | T2     | inputTransponders<sub>one</sub>| oneInputTransponder | expectedOneSatellite | actual |
-| T3     | inputTransponders<sub>multiple</sub>| twoInputTransponder | expectedTwoSatellites | actual |
+| T3     | inputTransponders<sub>multiple</sub>| twoInputTransponder* | expectedOneSatelliteWithTwoTransponders | actual |
 | T4     | inputTransponders<sub>null</sub>| null | Exception | actual |
 
-
+\* Beide Transponder gehören zu dem selben Satellite
 
 ## Function parseJsonToTree
 
