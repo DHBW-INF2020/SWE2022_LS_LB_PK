@@ -16,20 +16,14 @@ import static java.lang.Integer.parseInt;
  * @author Lukas Benner
  * @version 1.0
  */
-public class InputHandler {
-    
-    /**
-     * Creates a tree of Nodes from the input file
-     *
-     * @param filename Path to the input file
-     * @return Root Node of the input tree
-     */
-    // JsonReader
-    public static Node parseJsonToTree(String filename) {
+public class JsonParser implements iFormatParser {
+
+    @Override
+    public Node parseInputFile(String fileName) {
         Gson gson = new Gson();
         Root root = new Root();
 
-        try(Reader reader = Files.newBufferedReader(Paths.get(filename))){
+        try(Reader reader = Files.newBufferedReader(Paths.get(fileName))){
 
             InputTransponder[] list = gson.fromJson(reader, InputTransponder[].class);
 
@@ -37,10 +31,11 @@ public class InputHandler {
             root.setChildren(satellites);
 
         } catch(IOException e) {
-           throw new RuntimeException(e);
+            throw new RuntimeException(e);
         }
         return root;
     }
+
 
     /**
      * Turns a list of InputTransponders into a list of Satellites
@@ -69,4 +64,6 @@ public class InputHandler {
         }
         return new ArrayList<>(satellites.values());
     }
+
+
 }

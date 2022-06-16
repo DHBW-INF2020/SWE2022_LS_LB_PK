@@ -1,6 +1,5 @@
 package SatelliteManagement.input;
 
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import SatelliteManagement.tree.*;
 
@@ -17,7 +16,7 @@ import java.util.ArrayList;
  * @version 1.0
  */
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class InputHandlerTest {
+public class JsonParserTest {
     
 /**
  * Testcases for method getSatellitesFromInputFormat
@@ -36,7 +35,7 @@ public class InputHandlerTest {
         ArrayList<Node> expected = new ArrayList<>(); //empty array list
         
         // generate Satellite-Array by calling the tested method with test input 
-        var actual = InputHandler.getSatellitesFromInputFormat(emptyInputTransponders);
+        var actual = JsonParser.getSatellitesFromInputFormat(emptyInputTransponders);
         
         // check if expected Satellite equals actual generated Satellite (both empty)
         assertThat(actual).usingRecursiveComparison().isEqualTo(expected);
@@ -70,7 +69,7 @@ public class InputHandlerTest {
         expectedOneSatellite.add(sat);
         
         // generate Satellite-Array by calling the tested method with test input 
-        var actual = InputHandler.getSatellitesFromInputFormat(oneInputTransponders);
+        var actual = JsonParser.getSatellitesFromInputFormat(oneInputTransponders);
         
         // check if expected Satellite equals actual generated Satellite (both one Satellite)
         assertThat(actual).usingRecursiveComparison().isEqualTo(expectedOneSatellite);
@@ -117,7 +116,7 @@ public class InputHandlerTest {
         expectedTwoSatellites.add(sat2);
         
         // generate Satellite-Array by calling the tested method with test input 
-        var actual = InputHandler.getSatellitesFromInputFormat(twoInputTransponders);
+        var actual = JsonParser.getSatellitesFromInputFormat(twoInputTransponders);
         
         // check if expected Satellite equals actual generated Satellite (both two satellites)
         assertThat(actual).usingRecursiveComparison().isEqualTo(expectedTwoSatellites);
@@ -134,7 +133,7 @@ public class InputHandlerTest {
 
         try{
 
-            InputHandler.getSatellitesFromInputFormat(nullInputTransponders);
+            JsonParser.getSatellitesFromInputFormat(nullInputTransponders);
             fail("Did not throw an Exception");
         }
         catch (RuntimeException e){
@@ -153,7 +152,8 @@ public class InputHandlerTest {
     @Test
     void testcase1_parseJsonToTreeThrowExceptionTest(){
         try{
-            InputHandler.parseJsonToTree("");
+            iFormatParser inputParser = new JsonParser();
+            Node inputTree = inputParser.parseInputFile("");
             fail("Did not throw an IO Exception");
         }
         catch (RuntimeException e){
@@ -167,7 +167,8 @@ public class InputHandlerTest {
     @Test
     void testcase2_parseJsonToTreeThrowExceptionTest(){
         try{
-            InputHandler.parseJsonToTree("input.json");
+            iFormatParser inputParser = new JsonParser();
+            Node inputTree = inputParser.parseInputFile("input.json");
         }
         catch (RuntimeException e){
         	fail("Did throw an Exception, but should not");
@@ -181,11 +182,12 @@ public class InputHandlerTest {
     @Test
     void testcase3_parseJsonToTreeThrowExceptionTest(){
         try{
-            InputHandler.parseJsonToTree(null);
+            iFormatParser inputParser = new JsonParser();
+            Node inputTree = inputParser.parseInputFile(null);
             fail("Did not throw an IO Exception");
         }
         catch (RuntimeException e){
-        	// irgendwas, dass Test gut verlief
+            //Test OK
         }
     }
     
@@ -196,11 +198,12 @@ public class InputHandlerTest {
     @Test
     void testcase4_parseJsonToTreeThrowExceptionTest(){
         try{
-            InputHandler.parseJsonToTree("input.xml");
+            iFormatParser inputParser = new JsonParser();
+            Node inputTree = inputParser.parseInputFile("input.xml");
             fail("Did not throw an IO Exception");
         }
         catch (RuntimeException e){
-        	// irgendwas, dass Test gut verlief
+            //Test OK
         }
     }
 
