@@ -1,0 +1,37 @@
+@startuml
+
+artifact JsonInputFile
+
+
+component SatelliteManagement as app{
+
+    port "inputFile" as p_in
+
+    component AggregateVisitor
+    component Main
+    component OutputVisitor
+    component JsonParser
+
+    interface iVisitor
+    interface iOutputVisitor
+    interface iFormarParser
+
+    iVisitor -left- AggregateVisitor
+    Main -left-> iVisitor
+    Main -right->iOutputVisitor
+    iOutputVisitor -right- OutputVisitor
+    Main -up->iFormarParser
+    iFormarParser -left- JsonParser
+    () " " as i_in
+    i_in - JsonParser
+    p_in -down-> i_in
+}
+
+
+() " " as io_in
+io_in -down- p_in
+JsonInputFile -right-> io_in
+
+
+
+@enduml
