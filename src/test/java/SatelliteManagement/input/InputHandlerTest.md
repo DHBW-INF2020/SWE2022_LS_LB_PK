@@ -44,6 +44,9 @@
 2. filename<sub>notExist</sub> = input.xml;
 
 
+> **_NOTE:_**  Es wird nur die Funktionalität von dem Einlesen des Files getestet im Zusammenspiel mit der try/catch, das Umwandeln von JSON in ein Java Object wird nicht getestet (da gson lib) und das Umwandeln von Transponder in Satellite wird nicht getestet, da die Methode getSatellitesFromInputFormat (s.o.) extra getestet wird.
+
+
 | Testfall | Äquivalenzklasse |  Name/Wert der Testvariable | Soll-Ausgabe | Ist-Ausgabe |
 | ----     |    ----          | ----    | ---- | ---- |
 | T1     | filename<sub>empty</sub>| emptyFilename = "" | Exception | no Exception* |
