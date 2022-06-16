@@ -1,0 +1,30 @@
+
+@startuml
+
+start
+
+:Read Commandline Arguments;
+
+if (CLI Args are valid) then (true)
+  :Parse Json file to tree;
+  if (aggregate is?) then (CHANNEL_SAT)
+      :Produce
+      ChannelOverSatellitesVisitor;
+  else (SAT_TRANSPONDER)
+      :Produce
+      ChannelOverSatellitesVisitor;
+  endif
+  :Aggregate input tree
+  to output tree;
+  if (output format?) is (JSON) then
+    :produce JsonOutputVisitor;
+  else (XML)
+    :produce XmlOutputVisitor;
+  endif
+else (false)
+    :Print error message;
+    end
+endif
+end
+
+@enduml

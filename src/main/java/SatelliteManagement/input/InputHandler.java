@@ -69,6 +69,4 @@ public class InputHandler {
         }
         return new ArrayList<>(satellites.values());
     }
-
-
 }

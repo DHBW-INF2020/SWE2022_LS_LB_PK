@@ -64,6 +64,6 @@ public class JsonOutputTest {
                 "    ]\n" +
                 "  }\n" +
                 "]";
-        assertThat(actual).isEqualTo(expected);
+        assertThat(actual).isEqualToNormalizingNewlines(expected);
     }
 }
