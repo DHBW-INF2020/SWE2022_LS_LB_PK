@@ -1,179 +1,143 @@
 @startuml
+title Class Diagramm
 
-skinparam class {
-    ArrowColor black
-    BorderColor black
-    BackgroundColor white
-    NoteBorderColor black
+!include https://raw.githubusercontent.com/ptrkcsk/one-dark-plantuml-theme/v1.0.0/theme.puml
+
+interface iVisitor {
+    + Node visitChannel(Channel ctx)
+    + Node visitSatellite(Satellite ctx)
+    + Node visitTransponder(Transponder ctx)
+    + Node visitRoot(Root ctx)
 }
 
-package main.java.visitor {
+abstract class BaseVisitor
+class SatellitesOverTransponders_Visitor
+class ChannelsOverSatellites_Visitor
 
-    interface iVisitor {
-        Node visitChannel(Channel ctx)
-        Node visitSatellite(Satellite ctx)
-        Node visitTransponder(Transponder ctx)
-        Node visitRoot(Root ctx)
-    }
+iVisitor <|-- BaseVisitor
+BaseVisitor <|-- SatellitesOverTransponders_Visitor
+BaseVisitor <|-- ChannelsOverSatellites_Visitor
 
-    iVisitor <|-- BaseVistor
+enum Aggregate {
+    CHANNEL_SAT
+    SAT_TRANSPONDER
 }
 
-package "main.java.tree" {
-
-    enum NodeType {
-        SATTELITE,
-        TRANSPONDER,
-        CHANNEL,
-        ROOT
-    }
-
-    abstract class Node {
-        -ArrayList<Node> _children
-        -NodeType _childrenType
-
-        +ArrayList<Node> getChildren()
-        +void setChildren(ArrayList<Node> children)
-        +void clearChildren()
-        +void addChildren(Node child)
-        {abstract} +NodeType getType()
-        {abstract} +Node accept(iVistor visitor)
-    }
-
-    class Transponder {
-        -String _polarisation
-        -int _frequency
-        -String _symmetry
-
-        +String getPolarisation()
-        +int getPolarisation()
-        +String getSymmetry()
-    }
-
-    class Satellite {
-        -String _name
-        -String _orbital
-
-        +String getOrbital()
-        +String getName()
-    }
-
-    class Channel{
-        -int _sid
-        -String _name
-
-        +String getName()
-        +int getSid()
-    }
-    Root <|-- Node
-    Channel <|-- Node
-    Channel --o NodeType
-    Satellite <|-- Node
-    Satellite --o NodeType
-    Transponder <|-- Node
-    Transponder --o NodeType
-    Node --o NodeType
+class AggregateVisitorFactory{
++ {static} iVisitor produceAggregateVisitor(Aggregate aggregate)
 }
 
-package main.java.output {
-    enum Format {
-        XML,
-        JSON
-    }
+Aggregate <-- AggregateVisitorFactory
+iVisitor <-- AggregateVisitorFactory
 
-    interface iOutputVisitor{
-        void addAttribute(String name, String value)
-        void addChildren(ArrayList<Node> children, NodeType childrenType)
-        String getParsedData()
-    }
+interface iOutputVisitor{
+    + void addAttribute(String name, String value, Boolean first)
+    + void addChildren(ArrayList<Node> children, NodeType childrenType)
+    + String getParsedData()
+}
+iVisitor <|-- iOutputVisitor
 
-    class JsonOutputVisitor {
-        -String normalizedJSON(String input)
-    }
-
-    class OutputVisitorFactory {
-        {static} iOutputVisitor produceVisitor(Format format)
-    }
-
-    class XmlOutputVisitor {
-        -String normalizedXML(String input)
-    }
+class JsonOutputVisitor{
+- String normalizeJson(String input)
 }
 iOutputVisitor <|-- JsonOutputVisitor
+
+class XmlOutputVisitor{
+- String normalizeXML(String input)
+}
 iOutputVisitor <|-- XmlOutputVisitor
 
-package main.java.input {
-    class AggregateArgValidator {
-        implements IParameterValidator
-    }
-
-    class CliArgs {
-        -String outputPath
-        -String aggregate
-        -String outputFormat
-        -String inputFormat
-
-        {static} +CliArgs getInstance(String[] argv)
-        +Aggregate getAggregate()
-        +String getOutputPath()
-        +Format getOutputFormat()
-        +String getInputPath()
-    }
-
-    class FormatArgValidator {
-        implements IParameterValidator
-    }
-
-    class InputChannel {
-        +String sid
-        +String name
-
-        {static} +InputChannel(String sid, String name)
-    }
-
-    class InputHandler {
-        {static} +Node parseJsonToTree(String filename)
-        {static} #ArrayList<Node> getSatellitesFromInputFormat(InputTransponder[] inputTransponders) 
-    }   
-
-    class InputTransponder {
-        +String sat
-        +String orbital
-        +String pol
-        +String freq
-        +String sym
-        +ArrayList<InputChannel> channels
-
-        {static} +InputTransponder(String sat, String orbital, String pol, String freq, String sym, ArrayList<InputChannel> channels)
-    }
+enum Format{
+XML,
+JsonOutputVisitor
 }
 
-package main.java.aggregates {
-    enum Aggregate {
-        CHANNEL_SAT,
-        SAT_TRANSPONDER
-    }
-
-    class AggregateVisitorFactory {
-        {static} iVistitor produceAggregateVisitor(Aggregate aggregate)
-    }
-
-    class ChannelsOverSatellitesVisitor {
-        +HashMap<String, Channel> channels public?
-        +Satellite currentSatellite   
-    } 
-
-    class SatellitesOverTranspondersVisitor {
-        +HashMap<String, Satellite> satellites
-    }
+class OutputVisitorFactory{
++ {static} iOutputVisitor produceVisitor(Format format)
 }
 
-package main.java {
+iOutputVisitor <-- OutputVisitorFactory
+Format <-- OutputVisitorFactory
 
-    class Main {
-        {static} +void main(String[] argv)
-    }
+abstract class Node{
+- ArrayList<Node> _children
+- NodeType _childrenType
++ {abstract} Node accept(iVisitor visitor)
++ NodeType getChildrenType()
++ void setChildren(ArrayList<Node> children)
++ void clearChildren()
++ void addChild()
++ {abstract} NodeType getType()
 }
 
+iVisitor <-- Node
+NodeType <-- Node
+Node o-- Node
+
+class Channel{
+- int _sid
+- String _name
++ int getSid()
++ String getName()
+}
+
+Node <|-- Channel
+
+class Satellite{
+- String _orbital
+- String _name
++ String getOrbital()
++ String getName()
+}
+
+Node <|-- Satellite
+
+class Transponder{
+- int _polarisation
+- String _frequency
+- String _symmetry
+
++ String getPolarisation()
++ String getFrequency()
++ String getSymmetry()
+}
+
+Node <|-- Transponder
+
+class Root{
+}
+
+Node <|-- Root
+
+
+enum NodeType{
+SATELLITE
+TRANSPONDER
+CHANNEL
+ROOT
+}
+
+class InputChannel{
++ String sid
++ String name
+}
+
+class InputTransponder{
++ String sat
++ String orbital
++ String pol
++ String freq
++ String sym
++ ArrayList<InputChannel> channels
+}
+
+class InputHandler{
++ {static} Node parseJsonToTree(String filename)
+# {static} ArrayList<Node> getSatellitesFromInputFormat(ArrayList<InputTransponder> inputTransponders)
+}
+
+InputTransponder <-- InputHandler
+InputChannel <-- InputHandler
+Node <-- InputHandler
 
 @enduml
