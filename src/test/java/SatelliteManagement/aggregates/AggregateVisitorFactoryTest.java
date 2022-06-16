@@ -2,7 +2,7 @@ package test.java.SatelliteManagement.aggregates;
 
 import org.junit.jupiter.api.Test;
 import SatelliteManagement.tree.*;
-import SatelliteMangement.aggregates.*;
+import SatelliteManagement.aggregates.*;
 import org.junit.jupiter.api.TestInstance;
 
 import static org.assertj.core.api.Assertions.assertThat;
