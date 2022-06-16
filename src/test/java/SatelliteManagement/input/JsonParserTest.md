@@ -28,7 +28,7 @@
 
 \* Beide Transponder gehören zu dem selben Satellite
 
-## Function parseJsonToTree
+## Function parseInputFile
 
 ### Funktion: liest die Eingabedatei ein und konvertiert die JSON Datei in eine Liste von Transpondern, mit der Liste der Transponder als Ãœbergabewert wird dann die Funktion getSatellitesFromInputFormat aufgerufen
 ### Eingabe: String filename

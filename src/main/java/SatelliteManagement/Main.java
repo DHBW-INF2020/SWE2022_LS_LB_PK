@@ -1,10 +1,11 @@
 package SatelliteManagement;
 
 import SatelliteManagement.aggregates.AggregateVisitorFactory;
+import SatelliteManagement.input.JsonParser;
+import SatelliteManagement.input.iFormatParser;
 import SatelliteManagement.output.OutputVisitorFactory;
 import SatelliteManagement.output.iOutputVisitor;
 import SatelliteManagement.input.CliArgs;
-import SatelliteManagement.input.InputHandler;
 import SatelliteManagement.tree.Node;
 import SatelliteManagement.visitor.iVisitor;
 
@@ -23,7 +24,8 @@ public class Main {
         CliArgs args = CliArgs.getInstance(argv);
         
         // build tree from input JSON
-        Node inputTree = InputHandler.parseJsonToTree(args.getInputPath());
+        iFormatParser inputParser = new JsonParser();
+        Node inputTree = inputParser.parseInputFile(args.getInputPath());
         
         // save the aggregate from the args
         iVisitor aggregate = AggregateVisitorFactory.produceVisitor(args.getAggregate());
