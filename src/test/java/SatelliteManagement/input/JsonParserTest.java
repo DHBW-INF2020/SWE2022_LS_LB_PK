@@ -77,7 +77,7 @@ public class JsonParserTest {
     
     
     /**
-     * Testcase 2: twoInputTransponders = [ Transponder1, Transponder2 ] (test for multiple)
+     * Testcase 3: twoInputTransponders = [ Transponder1, Transponder2 ] (test for multiple)
      */
     @Test
     public void testcase3_getSatellitesFromInputFormat() {
@@ -102,12 +102,8 @@ public class JsonParserTest {
         transponder1.addChild(new Channel("Discovery Science HD", 607));
         // add Transponder1 to Satellite1
         sat1.addChild(transponder1);
-        // create second Transponder
+        // create second Transponder without Channel
         Transponder transponder2 = new Transponder("V", "12072", "30000");
-        // add one Channel as child
-        transponder2.addChild(new Channel("Discovery Science HD", 607));
-        // add Transponder2 to Satellite1
-        sat1.addChild(transponder2);
         
         // add Satellite1 to Satellite-Array
         expectedOneSatelliteWithTwoTransponders.add(sat1);
