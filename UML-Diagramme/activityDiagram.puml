@@ -1,6 +1,17 @@
 
 @startuml
 
+
+skinparam activity{
+  BackgroundColor lightgrey
+  BorderColor black
+  ArrowColor black
+  DiamondBackgroundColor white
+  DiamondBorderColor black
+}
+
+
+
 start
 
 :Read Commandline Arguments;
