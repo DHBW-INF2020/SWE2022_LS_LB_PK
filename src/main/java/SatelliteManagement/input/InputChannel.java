@@ -6,8 +6,8 @@ package SatelliteManagement.input;
  * @version 1.0
  */
 public class InputChannel {
-    public String sid;
-    public String name;
+    private String _sid;
+    private String _name;
 
     /**
      * Constructor to map channel from json to java object 
@@ -15,7 +15,23 @@ public class InputChannel {
      * @param name
      */
     public InputChannel(String sid, String name) {
-        this.sid = sid;
-        this.name = name;
+        this._sid = sid;
+        this._name = name;
     }
+
+    /**
+     * Getter for sid
+     * @return sid
+     */
+	public String get_sid() {
+		return _sid;
+	}
+
+	/**
+	 * Getter for name
+	 * @return name
+	 */
+	public String get_name() {
+		return _name;
+	}
 }

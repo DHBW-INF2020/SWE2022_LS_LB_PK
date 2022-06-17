@@ -46,18 +46,18 @@ public class JsonParser implements iFormatParser {
     protected static ArrayList<Node> getSatellitesFromInputFormat(ArrayList<InputTransponder> inputTransponders) {
         HashMap<String, Satellite> satellites = new HashMap<>();
         for(InputTransponder inputTrasponder : inputTransponders){
-            String satName = inputTrasponder.sat;
-            Transponder transponder = new Transponder(inputTrasponder.pol, inputTrasponder.freq, inputTrasponder.sym);
+            String satName = inputTrasponder.get_sat();
+            Transponder transponder = new Transponder(inputTrasponder.get_pol(), inputTrasponder.get_freq(), inputTrasponder.get_sym());
             ArrayList<Node> channels = new ArrayList<>();
-            for(InputChannel channel :  inputTrasponder.channels){
-                channels.add(new Channel(channel.name, parseInt(channel.sid)));
+            for(InputChannel channel :  inputTrasponder.get_channels()){
+                channels.add(new Channel(channel.get_name(), parseInt(channel.get_sid())));
             }
             transponder.setChildren(channels);
             if(satellites.containsKey(satName)){
                 satellites.get(satName).addChild(transponder);
             }
             else{
-                Satellite sat = new Satellite(satName, inputTrasponder.orbital);
+                Satellite sat = new Satellite(satName, inputTrasponder.get_orbital());
                 sat.addChild(transponder);
                 satellites.put(satName, sat);
             }
