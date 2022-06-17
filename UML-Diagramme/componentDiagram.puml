@@ -4,8 +4,6 @@ artifact JsonInputFile
 artifact UserInput
 artifact OutputFile
 
-
-
 skinparam component {
     BackgroundColor white
     BorderColor black
@@ -50,15 +48,15 @@ component SatelliteManagement as app{
     iOutputVisitor -right- OutputVisitor
     Main -up-->iFormatParser
     JsonParser -u- iFormatParser
+
     () " " as i_in
-    i_in - JsonParser
+    i_in -down- JsonParser
     p_in -down-> i_in
     Main -up-> CLIArgsParser
     () " " as i_args
     i_args -down- CLIArgsParser
-    () " " as i_out
-    Main -up-> i_out
 
+    Main -up-> i_out
     JsonParser -[hidden]> CLIArgsParser
 
 }
