@@ -89,8 +89,9 @@ public class JsonParserTest {
         channels.add(new InputChannel("607", "Discovery Science HD"));
         // add first Transponder with one Channel
         twoInputTransponders.add(new InputTransponder("BulgariaSat-1", "1.9° E", "H", "12072", "30000", channels));
-        // add second Transponder with one Channel
-        twoInputTransponders.add(new InputTransponder("BulgariaSat-1", "1.9° E", "V", "12072", "30000", channels));
+
+        // add second Transponder with no Channel
+        twoInputTransponders.add(new InputTransponder("BulgariaSat-1", "1.9° E", "V", "12072", "30000", new ArrayList<InputChannel>()));
 
     	// build the expected Satellite-Array
         ArrayList<Node> expectedOneSatelliteWithTwoTransponders = new ArrayList<>();
@@ -104,7 +105,8 @@ public class JsonParserTest {
         sat1.addChild(transponder1);
         // create second Transponder without Channel
         Transponder transponder2 = new Transponder("V", "12072", "30000");
-        
+        sat1.addChild(transponder2);
+
         // add Satellite1 to Satellite-Array
         expectedOneSatelliteWithTwoTransponders.add(sat1);
         
