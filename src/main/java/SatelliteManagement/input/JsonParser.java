@@ -45,11 +45,15 @@ public class JsonParser implements iFormatParser {
      */
     protected static ArrayList<Node> getSatellitesFromInputFormat(ArrayList<InputTransponder> inputTransponders) {
         HashMap<String, Satellite> satellites = new HashMap<>();
-        for(InputTransponder inputTrasponder : inputTransponders){
-            String satName = inputTrasponder.getSat();
-            Transponder transponder = new Transponder(inputTrasponder.getPol(), inputTrasponder.getFreq(), inputTrasponder.getSym());
+
+        if(inputTransponders == null)
+            throw new IllegalArgumentException("inputTransponders can not be null");
+
+        for(InputTransponder inputTransponder : inputTransponders){
+            String satName = inputTransponder.getSat();
+            Transponder transponder = new Transponder(inputTransponder.getPol(), inputTransponder.getFreq(), inputTransponder.getSym());
             ArrayList<Node> channels = new ArrayList<>();
-            for(InputChannel channel :  inputTrasponder.get_channels()){
+            for(InputChannel channel :  inputTransponder.get_channels()){
                 channels.add(new Channel(channel.getName(), parseInt(channel.getSid())));
             }
             transponder.setChildren(channels);
@@ -57,7 +61,7 @@ public class JsonParser implements iFormatParser {
                 satellites.get(satName).addChild(transponder);
             }
             else{
-                Satellite sat = new Satellite(satName, inputTrasponder.getOrbital());
+                Satellite sat = new Satellite(satName, inputTransponder.getOrbital());
                 sat.addChild(transponder);
                 satellites.put(satName, sat);
             }
