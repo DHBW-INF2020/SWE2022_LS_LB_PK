@@ -18,22 +18,24 @@ component SatelliteManagement as app{
 
     interface iVisitor
     interface iOutputVisitor
-    interface iFormarParser
+    interface iFormatParser
 
     iVisitor -left- SatOverTransVisitor
     Main -left-> iVisitor
     Main -right->iOutputVisitor
     iOutputVisitor -right- OutputVisitor
-    Main -up-->iFormarParser
-    JsonParser -right- iFormarParser
+    Main -up-->iFormatParser
+    JsonParser -down- iFormatParser
+
     () " " as i_in
-    i_in - JsonParser
+    i_in -down- JsonParser
     p_in -down-> i_in
     Main -up-> CLIArgsParser
     () " " as i_args
     i_args -down- CLIArgsParser
     () " " as i_out
     Main -up- i_out
+    iFormatParser -[hidden]> CLIArgsParser
 }
 
 
