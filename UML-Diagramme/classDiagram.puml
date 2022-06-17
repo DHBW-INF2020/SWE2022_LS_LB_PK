@@ -1,8 +1,6 @@
 @startuml
 title Class Diagramm
 
-!include https://raw.githubusercontent.com/ptrkcsk/one-dark-plantuml-theme/v1.0.0/theme.puml
-
 interface iVisitor {
     + Node visitChannel(Channel ctx)
     + Node visitSatellite(Satellite ctx)
@@ -119,13 +117,19 @@ class InputTransponder{
 + ArrayList<InputChannel> channels
 }
 
-class InputHandler{
+interface iFormatParser{
+Node parseInputFile
+}
+
+class JsonParser{
 + {static} Node parseJsonToTree(String filename)
 # {static} ArrayList<Node> getSatellitesFromInputFormat(ArrayList<InputTransponder> inputTransponders)
 }
 
-InputTransponder <-- InputHandler
-InputChannel <-- InputHandler
-Node <-- InputHandler
+iFormatParser <|-- JsonParser
+
+InputTransponder <-- JsonParser
+InputChannel <-- JsonParser
+Node <-- JsonParser
 
 @enduml
